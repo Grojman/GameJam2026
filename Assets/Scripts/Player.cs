@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     public Image timeFill;
     Mask? currentMask;
     float maskTimer = 0f;
-    bool maskTimerActive = true;
+    bool maskTimerActive = true; //Lo pongo en false para pruebas
     public int AttackDamage = 1;
     public Vector2 AttackSize = new Vector2(1f, 1f);
     public Vector2 AttackDirection;
@@ -28,13 +28,15 @@ public class Player : MonoBehaviour
     public int HitPoints;
     public Transform SpawnPoint;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         rg = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
-        transform.position = SpawnPoint.position;
+        //transform.position = SpawnPoint.position;
         HitPoints = DEFAULT_HIT_POINTS;
+        AttackDirection = playerInput.actions["Aim"].ReadValue<Vector2>();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -43,7 +45,7 @@ public class Player : MonoBehaviour
 
         input = playerInput.actions["Move"].ReadValue<Vector2>();
         AttackDirection = playerInput.actions["Aim"].ReadValue<Vector2>();
-        movement = new Vector2(Time.deltaTime * Speed * input.x, 0);
+        movement = new Vector3(input.x, 0f, input.y) * Speed;
     }
 
     void HandleTimeBar()
@@ -64,16 +66,24 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        rg.AddForce(movement);
+        rg.linearVelocity = new Vector2(input.x * Speed, rg.linearVelocity.y);
+        //rg.linearVelocity = new Vector2(movement.x, rg.linearVelocity.y);
+        /*movement = new Vector3(input.x,0f, input.y) * Speed;
+        rg.AddForce(movement);*/
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
         if(context.performed)
         {
-            rg.AddForce(Vector2.up * JumpForce);
+            rg.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
+
         }
     }
+
+
+
+
 
     public void Attack(InputAction.CallbackContext context)
     {
