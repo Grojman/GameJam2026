@@ -3,6 +3,9 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    Mask? currentMask;
+    float maskTimer = 0f;
+    bool maskTimerActive = true;
     public Vector2 AttackDirection;
     public Rigidbody2D rg;
     public PlayerInput playerInput;
@@ -26,6 +29,15 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        maskTimer -= Time.deltaTime;
+
+        if (maskTimer <= 0)
+        {
+            maskTimer = 0;
+            maskTimerActive = false;
+            currentMask.Close(this);
+        }
+
         input = playerInput.actions["Move"].ReadValue<Vector2>();
         AttackDirection = playerInput.actions["Aim"].ReadValue<Vector2>();
         movement = new Vector2(Time.deltaTime * Speed * input.x, 0);
@@ -50,5 +62,13 @@ public class Player : MonoBehaviour
         {
             //Si tiene una mascara que cambie su ataque, pues eso
         }
+    }
+
+    public void GetMask(Mask mask)
+    {
+        currentMask = mask;
+        maskTimer = mask.TimeMask;
+        maskTimerActive = true;
+        mask.Get(this);   
     }
 }
