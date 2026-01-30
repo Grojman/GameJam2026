@@ -140,6 +140,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36a6174fa800e747b2fe0cb33c58cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  DeathCount: 0
+  HitMask:
+    serializedVersion: 2
+    m_Bits: 0
+  timebar: {fileID: 0}
+  AttackDamage: 1
+  AttackSize: {x: 1, y: 1}
   AttackDirection: {x: 0, y: 0}
   rg: {fileID: 0}
   playerInput: {fileID: 0}
@@ -150,7 +157,6 @@ MonoBehaviour:
   JumpForce: 5
   HitPoints: 0
   SpawnPoint: {fileID: 0}
-  inputEnabled: 0
 --- !u!50 &8437029502469556671
 Rigidbody2D:
   serializedVersion: 5
@@ -291,6 +297,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 053bad58-1ea6-458d-a4ed-9df55911a1a1
+    m_ActionName: Player/Aim
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

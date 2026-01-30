@@ -5,13 +5,16 @@ using System.Collections.Generic;
 public class MapLoadManager : MonoBehaviour
 {
     [SerializeField] List<Transform> positions;
-    public GameObject prefab;
+    [SerializeField] List<GameObject> players;
+    [SerializeField] GameObject prefab;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        foreach(Transform go in positions)
+        foreach(GameObject pl in players)
         {
-            Instantiate(prefab, go);
+            Transform pos = positions[0];
+            positions.Remove(pos);
+            Instantiate(prefab, pos);
         }
     }
 
