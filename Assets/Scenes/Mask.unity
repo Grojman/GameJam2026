@@ -128,7 +128,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1039969736}
-  - component: {fileID: 1039969735}
   - component: {fileID: 1039969734}
   m_Layer: 0
   m_Name: Mask
@@ -183,20 +182,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1039969735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1039969733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffe0045f6c93cd84ea3bf2f089d9af9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Mask
-  TimeMask: 5
-  CooldownMask: 5
 --- !u!4 &1039969736
 Transform:
   m_ObjectHideFlags: 0

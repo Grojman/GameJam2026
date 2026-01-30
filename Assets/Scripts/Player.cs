@@ -1,13 +1,16 @@
 using System;
+using System.Text;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public int DeathCount = 0;
     public LayerMask HitMask;
-    public Action<Player> attackAction; 
-    Image timeFill;
+    public Action<Player> attackAction;
+    public Image timebar;
+    public Image timeFill;
     Mask? currentMask;
     float maskTimer = 0f;
     bool maskTimerActive = true;
@@ -51,6 +54,7 @@ public class Player : MonoBehaviour
         {
             maskTimer = 0;
             maskTimerActive = false;
+            timebar.enabled = false;
             currentMask.Close(this);
         } else
         {
@@ -86,6 +90,7 @@ public class Player : MonoBehaviour
         currentMask = mask;
         maskTimer = mask.TimeMask;
         maskTimerActive = true;
+        timebar.enabled = true;
         mask.Get(this);   
     }
 
@@ -119,5 +124,28 @@ public class Player : MonoBehaviour
         {
             //TODO: HACER ALGO
         }
+    }
+
+    public static string ARomano(int numero)
+    {
+        if (numero <= 0 || numero > 3999)
+            return "Número fuera de rango (1-3999)";
+
+        // Pares de valores y sus símbolos romanos
+        int[] valores = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        string[] simbolos = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+
+        StringBuilder romano = new StringBuilder();
+
+        for(int i = 0; i < valores.Length; i++)
+        {
+            while(numero >= valores[i])
+            {
+                numero -= valores[i];
+                romano.Append(simbolos[i]);
+            }
+        }
+
+        return romano.ToString();
     }
 }
