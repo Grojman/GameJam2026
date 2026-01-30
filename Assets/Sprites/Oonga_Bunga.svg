@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1920"
+   height="1080"
+   viewBox="0 0 1920 1080"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="Oonga_Bunga.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="1.031934"
+     inkscape:cx="1012.1772"
+     inkscape:cy="626.49358"
+     inkscape:window-width="1920"
+     inkscape:window-height="1111"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <linearGradient
+       id="linearGradient18"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#e41010;stop-opacity:0.49765259;"
+         offset="0"
+         id="stop19" />
+      <stop
+         style="stop-color:#eb1515;stop-opacity:0.70422536;"
+         offset="1"
+         id="stop20" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient10"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#e7de14;stop-opacity:0.62910795;"
+         offset="0"
+         id="stop11" />
+      <stop
+         style="stop-color:#c6a31e;stop-opacity:0.69999999;"
+         offset="0.25343636"
+         id="stop13" />
+      <stop
+         style="stop-color:#c77218;stop-opacity:0.76056337;"
+         offset="0.3653563"
+         id="stop14" />
+      <stop
+         style="stop-color:#e96319;stop-opacity:1;"
+         offset="0.51128209"
+         id="stop15" />
+      <stop
+         style="stop-color:#e24623;stop-opacity:1;"
+         offset="0.63039392"
+         id="stop18" />
+      <stop
+         style="stop-color:#c12314;stop-opacity:1;"
+         offset="0.72730893"
+         id="stop22" />
+      <stop
+         style="stop-color:#670c0c;stop-opacity:1;"
+         offset="0.91847825"
+         id="stop12" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient28"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop29" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop30" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient20"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#d2e282;stop-opacity:0.60000002;"
+         offset="0"
+         id="stop21" />
+      <stop
+         style="stop-color:#8bd81f;stop-opacity:0.69999999;"
+         offset="0.21467395"
+         id="stop23" />
+      <stop
+         style="stop-color:#6abf40;stop-opacity:0.80000001;"
+         offset="0.38858697"
+         id="stop24" />
+      <stop
+         style="stop-color:#268217;stop-opacity:0.89999998;"
+         offset="0.62771738"
+         id="stop25" />
+      <stop
+         style="stop-color:#214732;stop-opacity:0.94901961;"
+         offset="0.73233694"
+         id="stop27" />
+      <stop
+         style="stop-color:#314339;stop-opacity:0.97254902;"
+         offset="0.92459238"
+         id="stop28" />
+    </linearGradient>
+    <rect
+       x="248.05139"
+       y="265.86724"
+       width="1644.5396"
+       height="570.10707"
+       id="rect1" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient20"
+       id="radialGradient22"
+       cx="849.03516"
+       cy="544.83289"
+       fx="849.03516"
+       fy="544.83289"
+       r="582.32812"
+       gradientTransform="matrix(1.5923356,-0.00307512,0.00147647,0.76453285,-503.71814,130.90114)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient28"
+       id="linearGradient31"
+       gradientUnits="userSpaceOnUse"
+       x1="266.20703"
+       y1="544.8329"
+       x2="1431.8633"
+       y2="544.8329" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient10"
+       id="linearGradient16"
+       x1="1006.2513"
+       y1="533.93988"
+       x2="1004.5729"
+       y2="728.94507"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient18"
+       id="linearGradient21"
+       x1="261.70703"
+       y1="406.7491"
+       x2="1436.3633"
+       y2="406.7491"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       id="text1"
+       style="font-size:192px;white-space:pre;shape-inside:url(#rect1);display:inline;fill:url(#radialGradient22);stroke:url(#linearGradient21);stroke-width:10;stroke-dasharray:none;stroke-dashoffset:0"
+       transform="translate(158.00801,6.0897945)"><tspan
+         x="248.05078"
+         y="477.20223"
+         id="tspan6"><tspan
+           style="font-family:'Goudy Stout';-inkscape-font-specification:'Goudy Stout';stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0.678201;paint-order:markers stroke fill"
+           id="tspan2">OONGA </tspan><tspan
+           style="stroke-opacity:0.678201"
+           id="tspan5">
+</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:192px;font-family:Tribeca;-inkscape-font-specification:Tribeca;fill:url(#linearGradient16);fill-opacity:1;stroke:#ffffff;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0.97577852;paint-order:markers stroke fill"
+       x="612.591"
+       y="704.41119"
+       id="text2"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         x="612.591"
+         y="704.41119"
+         style="fill:url(#linearGradient16);fill-opacity:1;stroke:#ffffff;stroke-opacity:0.97577852">BUNGA</tspan></text>
+  </g>
+</svg>
