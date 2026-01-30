@@ -9,8 +9,7 @@ public class Player : MonoBehaviour
     public int DeathCount = 0;
     public LayerMask HitMask;
     public Action<Player> attackAction;
-    public Image timebar;
-    public Image timeFill;
+    public Slider timebar;
     Mask? currentMask;
     float maskTimer = 0f;
     bool maskTimerActive = true; //Lo pongo en false para pruebas
@@ -34,7 +33,10 @@ public class Player : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         //transform.position = SpawnPoint.position;
         HitPoints = DEFAULT_HIT_POINTS;
-        AttackDirection = playerInput.actions["Aim"].ReadValue<Vector2>();
+        // AttackDirection = playerInput.actions["Aim"].ReadValue<Vector2>();
+
+        maskTimerActive = true;
+        maskTimer = 10f;
     }
 
 
@@ -43,9 +45,9 @@ public class Player : MonoBehaviour
     {
         if (maskTimerActive) HandleTimeBar();
 
-        input = playerInput.actions["Move"].ReadValue<Vector2>();
-        AttackDirection = playerInput.actions["Aim"].ReadValue<Vector2>();
-        movement = new Vector3(input.x, 0f, input.y) * Speed;
+        // input = playerInput.actions["Move"].ReadValue<Vector2>();
+        // AttackDirection = playerInput.actions["Aim"].ReadValue<Vector2>();
+        // movement = new Vector3(input.x, 0f, input.y) * Speed;
     }
 
     void HandleTimeBar()
@@ -54,19 +56,21 @@ public class Player : MonoBehaviour
 
         if (maskTimer <= 0)
         {
+            
             maskTimer = 0;
             maskTimerActive = false;
-            timebar.enabled = false;
-            currentMask.Close(this);
+            timebar.gameObject.SetActive(false);
+            // currentMask.Close(this);
         } else
         {
-            timeFill.fillAmount = maskTimer / currentMask.TimeMask;
+            timebar.value = maskTimer / 10f;
+            // timeFill.fillAmount = maskTimer / currentMask.TimeMask;
         }
     }
 
     void FixedUpdate()
     {
-        rg.linearVelocity = new Vector2(input.x * Speed, rg.linearVelocity.y);
+        // rg.linearVelocity = new Vector2(input.x * Speed, rg.linearVelocity.y);
         //rg.linearVelocity = new Vector2(movement.x, rg.linearVelocity.y);
         /*movement = new Vector3(input.x,0f, input.y) * Speed;
         rg.AddForce(movement);*/
@@ -100,7 +104,7 @@ public class Player : MonoBehaviour
         currentMask = mask;
         maskTimer = mask.TimeMask;
         maskTimerActive = true;
-        timebar.enabled = true;
+        timebar.gameObject.SetActive(true);
         mask.Get(this);   
     }
 
@@ -138,7 +142,8 @@ public class Player : MonoBehaviour
 
     public static string ARomano(int numero)
     {
-        if (numero <= 0 || numero > 3999)
+        if(numero == 0) return string.Empty;
+        if (numero <= 1 || numero > 3999)
             return "Número fuera de rango (1-3999)";
 
         // Pares de valores y sus símbolos romanos
