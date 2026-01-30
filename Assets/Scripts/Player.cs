@@ -1,11 +1,18 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public LayerMask HitMask;
+    public Action<Player> attackAction; 
+    Image timeFill;
     Mask? currentMask;
     float maskTimer = 0f;
     bool maskTimerActive = true;
+    public int AttackDamage = 1;
+    public Vector2 AttackSize = new Vector2(1f, 1f);
     public Vector2 AttackDirection;
     public Rigidbody2D rg;
     public PlayerInput playerInput;
@@ -29,6 +36,15 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (maskTimerActive) HandleTimeBar();
+
+        input = playerInput.actions["Move"].ReadValue<Vector2>();
+        AttackDirection = playerInput.actions["Aim"].ReadValue<Vector2>();
+        movement = new Vector2(Time.deltaTime * Speed * input.x, 0);
+    }
+
+    void HandleTimeBar()
+    {
         maskTimer -= Time.deltaTime;
 
         if (maskTimer <= 0)
@@ -36,11 +52,10 @@ public class Player : MonoBehaviour
             maskTimer = 0;
             maskTimerActive = false;
             currentMask.Close(this);
+        } else
+        {
+            timeFill.fillAmount = maskTimer / currentMask.TimeMask;
         }
-
-        input = playerInput.actions["Move"].ReadValue<Vector2>();
-        AttackDirection = playerInput.actions["Aim"].ReadValue<Vector2>();
-        movement = new Vector2(Time.deltaTime * Speed * input.x, 0);
     }
 
     void FixedUpdate()
@@ -60,6 +75,8 @@ public class Player : MonoBehaviour
     {
         if (context.performed)
         {
+            if (attackAction is not null) attackAction(this);
+            else DefaultAttack();
             //Si tiene una mascara que cambie su ataque, pues eso
         }
     }
@@ -70,5 +87,37 @@ public class Player : MonoBehaviour
         maskTimer = mask.TimeMask;
         maskTimerActive = true;
         mask.Get(this);   
+    }
+
+    void DefaultAttack()
+    {
+        Collider2D hit = Physics2D.OverlapBox(
+            AttackDirection,
+            AttackSize,
+            0f,
+            HitMask
+        );
+
+        if (hit != null)
+        {
+            Player p = hit.GetComponent<Player>();
+
+            if(p != null)
+            {
+                p.Hit(AttackDamage);
+            }
+
+        }
+
+    }
+
+    public void Hit(int hitPoints)
+    {
+        this.HitPoints -= hitPoints;
+
+        if (HitPoints == 0)
+        {
+            //TODO: HACER ALGO
+        }
     }
 }
