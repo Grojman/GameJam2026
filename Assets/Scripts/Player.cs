@@ -200,8 +200,9 @@ public class Player : MonoBehaviour
 
         if (input.x != 0)
         {
-            transform.localScale = new Vector3(Mathf.Sign(input.x), 1, 1);
-            playerCanvas.transform.localScale = new Vector3(Mathf.Sign(input.x), 1, 1);
+            transform.localScale = new Vector3(Mathf.Sign(input.x) * Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            playerCanvas.transform.localScale = new Vector3(Mathf.Sign(input.x) * Math.Abs(playerCanvas.transform.localScale.x), playerCanvas.transform.localScale.y,
+                playerCanvas.transform.localScale.z);
         }
 
         if (cannotGetMask)
