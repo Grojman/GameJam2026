@@ -89,6 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36a6174fa800e747b2fe0cb33c58cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  head: {fileID: 6844031724359639355}
+  Alive: 1
   face: {fileID: 1379949190333714859}
   beingPushedCooldown: 0.5
   pushCooldown: 0.75
@@ -1086,7 +1088,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &368489496991506662
 Transform:
   m_ObjectHideFlags: 0
@@ -1344,7 +1346,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!1 &7769474547083492892
 GameObject:

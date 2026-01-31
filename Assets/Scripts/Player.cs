@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public GameObject head;
+    public bool Alive = true;
     public SpriteRenderer face;
     float beingPushedTimer = 0;
     public float beingPushedCooldown = 0.5f;
@@ -113,6 +115,7 @@ public class Player : MonoBehaviour
     public void OnLeaveGround()
     {
         Debug.Log("Leave \n");
+        jumpCounter--;
         animator.SetBool("Jumping", !grounded);
         grounded = false;
     }
@@ -193,7 +196,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!IAmBeingPushed)
+        if (!IAmBeingPushed && Alive)
         {
             rg.linearVelocity = new Vector2(input.x * Speed, rg.linearVelocity.y);
         }
@@ -210,25 +213,24 @@ public class Player : MonoBehaviour
         }
 
         float clampedY = Mathf.Max(rg.linearVelocity.y, -maxFallSpeed);
-        rg.linearVelocity = new Vector2(rg.linearVelocity.x, clampedY);
+        if (Alive) rg.linearVelocity = new Vector2(rg.linearVelocity.x, clampedY);
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
         Debug.Log($"{jumpCounter}\n");
-        if(context.performed && (jumpCounter != 0 || grounded))
+        if(context.performed && (jumpCounter != 0 || grounded) && Alive)
         {
 
             rg.linearVelocity = new Vector2(rg.linearVelocity.x, 0f);
             rg.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
-            jumpCounter--;
         }
     }
 
 
     public void Push(InputAction.CallbackContext context)
     {
-        if (context.started && !isPushOnCooldown)
+        if (context.started && !isPushOnCooldown && Alive)
         {
             isPushOnCooldown = true;
             pushTimer = pushCooldown;
@@ -262,7 +264,7 @@ public class Player : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        if (context.performed && !isPunchOnCooldown)
+        if (context.performed && !isPunchOnCooldown && Alive)
         {
             isPunchOnCooldown = true;
             punchTimer = punchCooldown;
@@ -301,8 +303,29 @@ public class Player : MonoBehaviour
 
         if (HitPoints == 0)
         {
-            //TODO: HACER ALGO
+            Kill();
         }
+    }
+
+    void Kill()
+    {
+        Alive = false;
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
+        head.GetComponent<SpriteRenderer>().enabled = false;
+        playerCanvas.enabled = false;
+        rg.bodyType = RigidbodyType2D.Static;
+    }
+
+    void Revive()
+    {
+        Alive = true;
+        HitPoints = DEFAULT_HIT_POINTS;
+        GetComponent<Collider2D>().enabled = true;
+        GetComponent<SpriteRenderer>().enabled = true;
+        head.GetComponent<SpriteRenderer>().enabled = true;
+        playerCanvas.enabled = true;
+        rg.bodyType = RigidbodyType2D.Dynamic;
     }
 
     public static string ARomano(int numero)
