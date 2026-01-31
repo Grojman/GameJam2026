@@ -34,6 +34,10 @@ public class Player : MonoBehaviour
     public int HitPoints;
     public Transform SpawnPoint;
     Canvas playerCanvas;
+
+    public float fallMultiplier = 2.5f; // Multiplicador de gravedad al caer
+    public float maxFallSpeed = 20f;    // Velocidad máxima de caída (Para que no atraviese el suelo)
+    public float defaultGravity;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -46,6 +50,7 @@ public class Player : MonoBehaviour
         nameVisual.text = $"{name} {ARomano(DeathCount)}";
         animator = GetComponent<Animator>();
         animator.SetFloat("AnimationSpeed", Speed);
+        defaultGravity = rg.gravityScale;
     }
 
     public void OnTouchGround()
@@ -106,6 +111,20 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         rg.linearVelocity = new Vector2(input.x * Speed, rg.linearVelocity.y);
+
+        //Gravedad dinámica
+
+        if (rg.linearVelocity.y < 0)
+        {
+            rg.gravityScale = defaultGravity * fallMultiplier;
+        }
+        else
+        {
+            rg.gravityScale = defaultGravity;
+        }
+
+        float clampedY = Mathf.Max(rg.linearVelocity.y, -maxFallSpeed);
+        rg.linearVelocity = new Vector2(rg.linearVelocity.x, clampedY);
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -113,8 +132,8 @@ public class Player : MonoBehaviour
         Debug.Log($"{jumpCounter}\n");
         if(context.performed && (jumpCounter != 0 || grounded))
         {
-            
-            
+
+            rg.linearVelocity = new Vector2(rg.linearVelocity.x, 0f);
             rg.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
             jumpCounter--;
         }

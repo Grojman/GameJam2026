@@ -667,7 +667,7 @@ GameObject:
   - component: {fileID: 822145494}
   m_Layer: 0
   m_Name: LaunchingPad
-  m_TagString: Untagged
+  m_TagString: LaunchPad
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -703,7 +703,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   slider: {fileID: 91941072}
   label: {fileID: 253909789}
-  MaxPlayers: 1
+  MaxPlayers: 0
   CurrentPlayers: 0
 --- !u!61 &822145495
 BoxCollider2D:
@@ -762,6 +762,10 @@ PrefabInstance:
     - target: {fileID: 3301464996670908973, guid: 2f37248a76166d849b32ca6e0805e530, type: 3}
       propertyPath: m_Name
       value: SpeedMask
+      objectReference: {fileID: 0}
+    - target: {fileID: 3301464996670908973, guid: 2f37248a76166d849b32ca6e0805e530, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8750197432910283827, guid: 2f37248a76166d849b32ca6e0805e530, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1320,6 +1324,10 @@ PrefabInstance:
     - target: {fileID: 5869987164331904306, guid: b781fc8d20917fe488cda7fe5f75ebcc, type: 3}
       propertyPath: m_Name
       value: JumpMask
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869987164331904306, guid: b781fc8d20917fe488cda7fe5f75ebcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
