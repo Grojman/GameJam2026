@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
 
     public void Taunt(InputAction.CallbackContext context)
     {
-        if(context.performed)
+        if(context.started)
         {
             animator.SetTrigger("Taunt");
         }
