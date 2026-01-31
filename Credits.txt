@@ -1,0 +1,46 @@
+---------Canciones--------------
+Stelino, A. (n.d.). Rough and Ready [Mixkit Rough and Ready]. Mixkit. Retrieved January 31, 2026,
+ from https://mixkit.co/free-stock-music/mood/aggressive/
+ (+Acción, centrado en el gameplay dinámico grupal/ligeramente caótico)
+
+Nuhzny, G. (n.d.). Epical Drums 03/05 [Mixkit Epical Drums 03/05]. Mikit. Retrieved January 31, 2026,
+ from https://mixkit.co/free-stock-music/mood/dangerous/
+(2 variantes distintas, quedaría bien como música de pantalla de inicio)
+[Me gusta más la ver.3 que la 5 pero las dos están muy bien]
+
+Nuhzny, G. (n.d.). Epical Drums 01/02/04/06 [Mixkit Epical Drums 03/05]. Mikit. Retrieved January 31, 2026,
+ from https://mixkit.co/free-stock-music/mood/exciting/    
+
+
+-------SFX-----------
+Download Free Jungle Sound Effects | Mixkit. (2024). Mixkit.co.
+ https://mixkit.co/free-sound-effects/jungle/
+ (1.Jungle Animal Call,2. Ape laughing, 3.Drumming Jungle music)
+ 1.
+ 2. Sonido de burla
+ 3. Sonido para antes de empezar la ronda o de instrucciones o misc.
+
+Download Free Swoosh Sound Effects | Mixkit. (n.d.). Mixkit.co.
+https://mixkit.co/free-sound-effects/swoosh/
+(Winning swoosh, Punch with a hard whistle)
+[SFX de obtener máscara e imposibilidad de obtenerla]
+
+Download Free Stomp Sound Effects | Mixkit. (2026). Mixkit.co. 
+https://mixkit.co/free-sound-effects/stomp/
+(Heavy Stomp) [Puñetazo general] (Subirle un poco el volumen si se puede en Unity del efecto    )
+
+Download Free Impact Sound Effects | Mixkit. (2025). Mixkit.co.
+https://mixkit.co/free-sound-effects/impact/
+(Puñetazo mejor)
+
+‌
+
+
+‌
+‌
+‌
+‌
+
+
+
+‌
