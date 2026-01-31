@@ -3,9 +3,11 @@ using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System;
 using UnityEditor;
+using System.Linq;
 
 public class PlayerSpawnManager : MonoBehaviour
 {
+    readonly string[] PLAYER_NAMES = new string[] {"Evasilio", "Filadelfo", "Segismunda", "Segismundo", "Onesíforo", "Telesforo", "Unga", "Godofredo", "Casimiro"};
     public AudioSource lobbyMusic;
 
     [Header("Posiciones de Inicio")]
@@ -67,6 +69,8 @@ public class PlayerSpawnManager : MonoBehaviour
 
         //Cambiar la cara para diferenciarlos
         Player player = newPlayer.GetComponent<Player>();
+        player.name = PLAYER_NAMES[new System.Random().Next(PLAYER_NAMES.Count())];
+        player.SetNameVisual();
         player.EnableFamilyFriendly();
         player.SpawnPoint = spawnPoints[index];
         player.psManager = this;

@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class MapLoadManager : MonoBehaviour
 {
     [SerializeField] List<Transform> positions;
+    [SerializeField] List<Transform> masksPositions;
+    [SerializeField] List<Mask> mask = new();
     [SerializeField] List<GameObject> players;
     [SerializeField] GameObject prefab;
     private FadeInOut fade;
@@ -38,17 +40,21 @@ public class MapLoadManager : MonoBehaviour
                 pl.GetComponent<SpriteRenderer>().enabled = true;
                 pl.GetComponent<Player>().DisableFamilyFriendly();
             }
-            else{
-                pl.GetComponent<Player>().Revive();
-            }
+            pl.GetComponent<Player>().Revive();
+            pl.GetComponent<Player>().SetHealthBar();
+        }
 
-            
-            
-            
+        var transform = masksPositions[0];
+        Instantiate(mask[new System.Random().Next(mask.Count)], transform.position, transform.rotation);
+
+        if(Data_Static.playerList.Count > 2)
+        {
+            var secondTransform = masksPositions[1];
+            Instantiate(mask[new System.Random().Next(mask.Count)], secondTransform.position, secondTransform.rotation);
         }
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         
         if(Data_Static.alivePLayers <= 1)
@@ -56,9 +62,11 @@ public class MapLoadManager : MonoBehaviour
             PlayerInput alivePlayer = null;
             foreach (PlayerInput pl in Data_Static.playerList)
             {
-                if(pl.GetComponent<Player>().Alive) alivePlayer = pl;
+                var player = pl.GetComponent<Player>();
+                player.ForceRemoveMask();
+                if(player.Alive) alivePlayer = pl;
             }
-            TriggerZoom(alivePlayer.transform);
+            if (alivePlayer != null) TriggerZoom(alivePlayer.transform);
         }
     }
 

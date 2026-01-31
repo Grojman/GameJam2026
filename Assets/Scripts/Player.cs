@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     public bool WallSlide = false;
     bool cannotGetMask = false;
     float cannotGetMaskTimer = 0f;
-    float cannotGetMaskCooldown = 2f;
+    float cannotGetMaskCooldown = 3f;
     public bool canChange;
     public bool FamilyFriendly;
     public PlayerSpawnManager psManager;
@@ -255,11 +255,9 @@ public class Player : MonoBehaviour
         animator.SetFloat("AnimationSpeed", Math.Abs(input.x));
     }
 
-    void HandleTimeBar()
+    public void ForceRemoveMask()
     {
-        maskTimer -= Time.deltaTime;
-
-        if (maskTimer <= 0)
+        if (currentMask != null)
         {
             cannotGetMask = true;
             cannotGetMaskTimer = cannotGetMaskCooldown;
@@ -267,11 +265,20 @@ public class Player : MonoBehaviour
             maskTimerActive = false;
             timebar.gameObject.SetActive(false);
             currentMask.Close(this);
-            Debug.Log("Se acaba\n");
             face.sprite = saveFace;
             currentMask.transform.position = new Vector2(transform.position.x, transform.position.y);
             currentMask.Show();
             currentMask = null;
+        }
+    }
+
+    void HandleTimeBar()
+    {
+        maskTimer -= Time.deltaTime;
+
+        if (maskTimer <= 0)
+        {
+            ForceRemoveMask();
 
         } else
         {
@@ -410,11 +417,14 @@ public class Player : MonoBehaviour
     void DefaultAttack()
     {
         animator.SetTrigger("Punch");
-        foreach(Player p in hurtPlayer.hittingPlayers)
+        for(int i = 0; i < hurtPlayer.hittingPlayers.Count; i++)
         {
+            Player p = hurtPlayer.hittingPlayers[i];
             p.Hit(AttackDamage);
         }
     }
+
+    public void SetHealthBar() => HealthSlider.value = (float)((float)HitPoints / DEFAULT_HIT_POINTS);
 
     public void Hit(int hitPoints)
     {
@@ -422,11 +432,13 @@ public class Player : MonoBehaviour
         HitPoints -= hitPoints;
         HealthSlider.value = (float)((float)HitPoints / DEFAULT_HIT_POINTS);
 
-        if (HitPoints == 0)
+        if (HitPoints <= 0)
         {
             Kill();
         }
     }
+
+    public void SetNameVisual() => nameVisual.text = $"{name} {ARomano(DeathCount)}";
 
     public void Kill()
     {

@@ -204,6 +204,15 @@ MonoBehaviour:
   - {fileID: 8676438069160586079}
   - {fileID: 3591501294210249424}
   - {fileID: 1931772437810392631}
+  masksPositions:
+  - {fileID: 8324488675448354499}
+  - {fileID: 4004874971686695577}
+  mask:
+  - {fileID: 7939209443679580006, guid: b781fc8d20917fe488cda7fe5f75ebcc, type: 3}
+  - {fileID: 3705541894757724372, guid: fcc9a34273084ab4fac5f41308132177, type: 3}
+  - {fileID: 448864868456273521, guid: 142bac920ec077f41a71e2d5c17b5259, type: 3}
+  - {fileID: 4940142598344184833, guid: fcf7135c6de957944bc16cb0a30468b8, type: 3}
+  - {fileID: 4870034364881811950, guid: 2f37248a76166d849b32ca6e0805e530, type: 3}
   players:
   - {fileID: 0}
   - {fileID: 0}

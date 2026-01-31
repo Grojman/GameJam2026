@@ -20,7 +20,6 @@ public class Mask : MonoBehaviour
             Player player = collision.GetComponent<Player>();
             if (player != null)
             {
-                Debug.Log("USUARIO RECIBIDO !!!");
                 player.GetMask(this);
             }
         }
