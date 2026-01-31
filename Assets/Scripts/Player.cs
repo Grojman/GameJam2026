@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public GameObject head;
     public bool Alive = true;
     public SpriteRenderer face;
+    Sprite saveFace;
     float beingPushedTimer = 0;
     public float beingPushedCooldown = 0.5f;
     bool IAmBeingPushed = false;
@@ -186,6 +187,13 @@ public class Player : MonoBehaviour
             maskTimer = 0;
             maskTimerActive = false;
             timebar.gameObject.SetActive(false);
+            currentMask.Close(this);
+            face.sprite = saveFace;
+            currentMask.transform.position = new Vector2(transform.position.x, transform.position.y);
+            currentMask.Show();
+            currentMask = null;
+
+
             // currentMask.Close(this);
         } else
         {
@@ -279,11 +287,17 @@ public class Player : MonoBehaviour
 
     public void GetMask(Mask mask)
     {
-        currentMask = mask;
-        maskTimer = mask.TimeMask;
-        maskTimerActive = true;
-        timebar.gameObject.SetActive(true);
-        mask.Get(this);   
+        if(!maskTimerActive)
+        {
+            currentMask = mask;
+            currentMask.Hide();
+            saveFace = face.sprite;
+            face.sprite = mask.GetSprite();
+            maskTimer = mask.TimeMask;
+            maskTimerActive = true;
+            timebar.gameObject.SetActive(true);
+            mask.Get(this); 
+        }
     }
 
     void DefaultAttack()
