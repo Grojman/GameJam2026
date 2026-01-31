@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public bool FamilyFriendly;
     public PlayerSpawnManager psManager;
     public float DashSpeed = 5f;
     public GameObject head;
@@ -64,6 +65,7 @@ public class Player : MonoBehaviour
     public float fallMultiplier = 2.5f; // Multiplicador de gravedad al caer
     public float maxFallSpeed = 20f;    // Velocidad máxima de caída (Para que no atraviese el suelo)
     public float defaultGravity;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -80,6 +82,21 @@ public class Player : MonoBehaviour
         hurtPlayer = HurtBox.GetComponent<HurtBoxPlayer>();
 
         hurtPlayer.myPlayer = this;
+    }
+
+    public void EnableFamilyFriendly()
+    {
+        FamilyFriendly = true;
+        HealthSlider.enabled = false;
+        HealthSlider.GetComponentInChildren<Image>().enabled = false;
+    }
+
+    public void DisableFamilyFriendly()
+    {
+        FamilyFriendly = false;
+        HealthSlider.enabled = true;
+        HealthSlider.GetComponentInChildren<Image>().enabled = true;
+        
     }
 
     public void SwapFace(InputAction.CallbackContext context)
@@ -292,7 +309,7 @@ public class Player : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        if (context.performed && !isPunchOnCooldown && Alive)
+        if (context.performed && !isPunchOnCooldown && Alive && !FamilyFriendly)
         {
             isPunchOnCooldown = true;
             punchTimer = punchCooldown;
