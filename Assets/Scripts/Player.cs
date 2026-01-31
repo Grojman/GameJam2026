@@ -1,4 +1,8 @@
 using System;
+using System.Data.SqlTypes;
+using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
+using System.Security;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -7,6 +11,11 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    bool cannotGetMask = false;
+    float cannotGetMaskTimer = 0f;
+    float cannotGetMaskCooldown = 2f;
+    public bool canChange;
+    public bool FamilyFriendly;
     public PlayerSpawnManager psManager;
     public float DashSpeed = 5f;
     public GameObject head;
@@ -45,7 +54,7 @@ public class Player : MonoBehaviour
     public Slider timebar;
     Mask? currentMask;
     float maskTimer = 0f;
-    bool maskTimerActive = true; //Lo pongo en false para pruebas
+    bool maskTimerActive = false; //Lo pongo en false para pruebas
     public int AttackDamage = 1;
     public Vector2 AttackSize = new Vector2(1f, 1f);
     public Vector2 AttackDirection;
@@ -64,9 +73,11 @@ public class Player : MonoBehaviour
     public float fallMultiplier = 2.5f; // Multiplicador de gravedad al caer
     public float maxFallSpeed = 20f;    // Velocidad máxima de caída (Para que no atraviese el suelo)
     public float defaultGravity;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        canChange = false;
         rg = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         //transform.position = SpawnPoint.position;
@@ -80,11 +91,30 @@ public class Player : MonoBehaviour
         hurtPlayer = HurtBox.GetComponent<HurtBoxPlayer>();
 
         hurtPlayer.myPlayer = this;
+
+        timebar.gameObject.SetActive(false);
+    }
+
+    public void EnableFamilyFriendly()
+    {
+        FamilyFriendly = true;
+        HealthSlider.enabled = false;
+        HealthSlider.GetComponentInChildren<Image>().enabled = false;
+    }
+
+    public void DisableFamilyFriendly()
+    {
+        FamilyFriendly = false;
+        HealthSlider.enabled = true;
+        HealthSlider.GetComponentInChildren<Image>().enabled = true;
+        
     }
 
     public void SwapFace(InputAction.CallbackContext context)
     {
-        face.sprite = psManager.SwapSprite(face.sprite);
+        Debug.Log($"{canChange}\n");
+        if(canChange && context.performed)
+            face.sprite = psManager.SwapSprite(face.sprite);
     }
 
     public void Taunt(InputAction.CallbackContext context)
@@ -144,6 +174,16 @@ public class Player : MonoBehaviour
             playerCanvas.transform.localScale = new Vector3(Mathf.Sign(input.x), 1, 1);
         }
 
+        if (cannotGetMask)
+        {
+            cannotGetMaskTimer -= Time.deltaTime;
+
+            if(cannotGetMaskTimer <= 0)
+            {
+                cannotGetMask = false;
+            }
+        }
+
         PositionHurtBox(input);
 
         if (isPushOnCooldown)
@@ -190,18 +230,18 @@ public class Player : MonoBehaviour
 
         if (maskTimer <= 0)
         {
-            
+            cannotGetMask = true;
+            cannotGetMaskTimer = cannotGetMaskCooldown;
             maskTimer = 0;
             maskTimerActive = false;
             timebar.gameObject.SetActive(false);
             currentMask.Close(this);
+            Debug.Log("Se acaba\n");
             face.sprite = saveFace;
             currentMask.transform.position = new Vector2(transform.position.x, transform.position.y);
             currentMask.Show();
             currentMask = null;
 
-
-            // currentMask.Close(this);
         } else
         {
             timebar.value = maskTimer / currentMask.TimeMask;
@@ -292,7 +332,7 @@ public class Player : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        if (context.performed && !isPunchOnCooldown && Alive)
+        if (context.performed && !isPunchOnCooldown && Alive && !FamilyFriendly)
         {
             isPunchOnCooldown = true;
             punchTimer = punchCooldown;
@@ -307,7 +347,7 @@ public class Player : MonoBehaviour
 
     public void GetMask(Mask mask)
     {
-        if(!maskTimerActive)
+        if(!maskTimerActive && !cannotGetMask)
         {
             currentMask = mask;
             currentMask.Hide();
@@ -343,10 +383,13 @@ public class Player : MonoBehaviour
 
     void Kill()
     {
+        DeathCount++;
+        nameVisual.text = $"{name} {ARomano(DeathCount)}";
         Alive = false;
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
         head.GetComponent<SpriteRenderer>().enabled = false;
+        face.enabled = false;
         playerCanvas.enabled = false;
         rg.bodyType = RigidbodyType2D.Static;
     }
@@ -359,6 +402,7 @@ public class Player : MonoBehaviour
         GetComponent<SpriteRenderer>().enabled = true;
         head.GetComponent<SpriteRenderer>().enabled = true;
         playerCanvas.enabled = true;
+        face.enabled = true;
         rg.bodyType = RigidbodyType2D.Dynamic;
     }
 

@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - LaunchPad
   - wall_slide
+  - changing room
   layers:
   - Default
   - TransparentFX

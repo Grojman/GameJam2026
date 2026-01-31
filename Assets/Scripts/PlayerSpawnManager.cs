@@ -64,6 +64,7 @@ public class PlayerSpawnManager : MonoBehaviour
 
         //Cambiar la cara para diferenciarlos
         Player player = newPlayer.GetComponent<Player>();
+        player.SpawnPoint = spawnPoints[index];
         player.psManager = this;
         if (player != null && sprites.Count > 0)
         {
