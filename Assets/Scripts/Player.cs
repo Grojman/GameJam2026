@@ -7,6 +7,12 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public float ActionCooldown = 5f;
+    public float KnocBackForce = 5f;
+    const float HURT_BOX_POS_X = 1.12f;
+    const float HURT_BOX_POS_Y = 0.74f;
+    public GameObject HurtBox;
+    HurtBoxPlayer hurtPlayer;
     Animator animator;
     bool grounded = true;
     public int MaxJumps = 2;
@@ -51,7 +57,36 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         animator.SetFloat("AnimationSpeed", Speed);
         defaultGravity = rg.gravityScale;
+
+        hurtPlayer = HurtBox.GetComponent<HurtBoxPlayer>();
+
+        hurtPlayer.myPlayer = this;
     }
+
+    public void Taunt(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            animator.SetTrigger("Taunt");
+        }
+    }
+
+    void PositionHurtBox(Vector2 input)
+    {
+        float xValue = input.x != 0 ? HURT_BOX_POS_X : 0;
+
+        float yValue = input.y switch
+        {
+            > 0 => HURT_BOX_POS_Y,
+            0 => 0,
+            < 0 => -HURT_BOX_POS_Y
+        };
+
+        var vector = new Vector2(xValue, yValue);
+
+        HurtBox.transform.localPosition = vector;
+    }
+
 
     public void OnTouchGround()
     {
@@ -84,6 +119,7 @@ public class Player : MonoBehaviour
             playerCanvas.transform.localScale = new Vector3(Mathf.Sign(input.x), 1, 1);
         }
 
+        PositionHurtBox(input);
 
 
         animator.SetBool("Jumping", !grounded);
@@ -140,7 +176,32 @@ public class Player : MonoBehaviour
     }
 
 
+    public void Push(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            foreach(Player p in hurtPlayer.hittingPlayers)
+            {
+                
+                Vector2 force = new Vector2(
+                    input.x switch
+                    {
+                        > 0 => 1,
+                        0 => 0,
+                        < 0 => -1
+                    },
+                    input.y switch
+                    {
+                        > 0 => 1,
+                        0 => 0,
+                        < 0 => -1
+                    }
+                );
 
+                p.rg.AddForce(force * KnocBackForce);
+            }
+        }
+    }
 
 
     public void Attack(InputAction.CallbackContext context)
@@ -166,24 +227,11 @@ public class Player : MonoBehaviour
 
     void DefaultAttack()
     {
-        Collider2D hit = Physics2D.OverlapBox(
-            AttackDirection,
-            AttackSize,
-            0f,
-            HitMask
-        );
-
-        if (hit != null)
+        animator.SetTrigger("Punch");
+        foreach(Player p in hurtPlayer.hittingPlayers)
         {
-            Player p = hit.GetComponent<Player>();
-
-            if(p != null)
-            {
-                p.Hit(AttackDamage);
-            }
-
+            p.Hit(AttackDamage);
         }
-
     }
 
     public void Hit(int hitPoints)
