@@ -1,16 +1,14 @@
 using UnityEngine;
 
-public class KnockBackMask : MonoBehaviour
+public class KnockBackMask : Mask
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void OnGet(Player player)
     {
-        
+        player.KnocBackForce += 10;
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void OnClose(Player player)
     {
-        
+        player.KnocBackForce -= 10;
     }
 }

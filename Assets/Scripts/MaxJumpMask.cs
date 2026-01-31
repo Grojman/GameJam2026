@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class JumpMask : Mask
+public class MaxJumpMask : Mask
 {
     protected override void OnGet(Player player)
     {
-        player.JumpForce += 20;
+        player.MaxJumps += 2;
     }
 
     protected override void OnClose(Player player)
     {
-        player.JumpForce -= 20;
+        player.MaxJumps -= 2;
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class LaunchPad : MonoBehaviour
 {
+    public FadeInOut fadeInOut;
     public UnityEngine.UI.Image imageAnimator;
     public UnityEngine.UI.Slider slider;
     public TextMeshProUGUI label;
@@ -37,15 +38,20 @@ public class LaunchPad : MonoBehaviour
             {
                 startCountDown = false;
 
-                foreach (PlayerInput pl in Data_Static.playerList)
+                fadeInOut.SetOut(() =>
                 {
-                    pl.GetComponent<SpriteRenderer>().enabled = false;
-                }
+                    foreach (PlayerInput pl in Data_Static.playerList)
+                    {
+                        pl.GetComponent<SpriteRenderer>().enabled = false;
+                    }
 
-                SceneManager.LoadScene("Scenaries");
+                    SceneManager.LoadScene("Scenaries");
 
-                //EMPEZAR PARTIDA
-                imageAnimator.GetComponent<Animator>().SetTrigger("Start");
+                    //EMPEZAR PARTIDA
+                    imageAnimator.GetComponent<Animator>().SetTrigger("Start");
+                });
+
+                
             }
         }
     }
