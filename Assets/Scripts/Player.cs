@@ -247,7 +247,7 @@ public class Player : MonoBehaviour
         Debug.Log($"{jumpCounter}\n");
         if(context.performed && (jumpCounter != 0 || grounded) && Alive)
         {
-            if(!grounded)
+            if (!grounded)
             {
                 jumpCounter--;
             }
@@ -255,7 +255,6 @@ public class Player : MonoBehaviour
             rg.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
         }
     }
-
 
     public void Push(InputAction.CallbackContext context)
     {
