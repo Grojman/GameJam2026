@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -18,7 +19,7 @@ public class Player : MonoBehaviour
     public float punchCooldown = 0.5f;
     float punchTimer = 0;
     bool isPunchOnCooldown = false;
-
+    SpriteRenderer face;
 
     public Slider HealthSlider;
     public float ActionCooldown = 5f;
