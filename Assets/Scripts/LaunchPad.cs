@@ -66,7 +66,7 @@ public class LaunchPad : MonoBehaviour
         }
     }
 
-    void UpdateLabel()
+    public void UpdateLabel()
     {
         label.text = $"{CurrentPlayers} / {MaxPlayers}";
     }

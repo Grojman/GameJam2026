@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     public float JumpForce = 5f;
     public int HitPoints;
     public Transform SpawnPoint;
+    Canvas playerCanvas;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -41,7 +42,7 @@ public class Player : MonoBehaviour
         //transform.position = SpawnPoint.position;
         HitPoints = DEFAULT_HIT_POINTS;
         // AttackDirection = playerInput.actions["Aim"].ReadValue<Vector2>();
-
+        playerCanvas = GetComponentInChildren<Canvas>();
         nameVisual.text = $"{name} {ARomano(DeathCount)}";
         animator = GetComponent<Animator>();
         animator.SetFloat("AnimationSpeed", Speed);
@@ -71,10 +72,16 @@ public class Player : MonoBehaviour
         input = playerInput.actions["Move"].ReadValue<Vector2>();
         // AttackDirection = playerInput.actions["Aim"].ReadValue<Vector2>();
         movement = new Vector3(input.x, 0f, input.y) * Speed;
-        
-        transform.localScale = new Vector3(input.x > 0 ? 1 : -1 , 1, 1);
+
+        if (input.x != 0)
+        {
+            transform.localScale = new Vector3(Mathf.Sign(input.x), 1, 1);
+            playerCanvas.transform.localScale = new Vector3(Mathf.Sign(input.x), 1, 1);
+        }
 
 
+
+        animator.SetBool("Jumping", !grounded);
         animator.SetFloat("AnimationSpeed", Math.Abs(input.x));
     }
 
@@ -99,9 +106,6 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         rg.linearVelocity = new Vector2(input.x * Speed, rg.linearVelocity.y);
-        rg.linearVelocity = new Vector2(movement.x, rg.linearVelocity.y);
-        movement = new Vector3(input.x,0f, input.y) * Speed;
-        rg.AddForce(movement);
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -109,7 +113,8 @@ public class Player : MonoBehaviour
         Debug.Log($"{jumpCounter}\n");
         if(context.performed && (jumpCounter != 0 || grounded))
         {
-            animator.SetBool("Jumping", !grounded);
+            
+            
             rg.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
             jumpCounter--;
         }

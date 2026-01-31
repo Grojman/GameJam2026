@@ -31,6 +31,10 @@ public class PlayerSpawnManager : MonoBehaviour
             sr.color = playerColors[index];
         }
 
+        GameObject pad = GameObject.FindGameObjectWithTag("LaunchPad");
+
+        pad.GetComponent<LaunchPad>().MaxPlayers++;
+        pad.GetComponent<LaunchPad>().UpdateLabel();
 
         // Aqui en se estableceran las vidas etc
     }
