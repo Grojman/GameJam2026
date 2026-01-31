@@ -1,4 +1,8 @@
 using System;
+using System.Data.SqlTypes;
+using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
+using System.Security;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -7,6 +11,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public bool canChange;
     public bool FamilyFriendly;
     public PlayerSpawnManager psManager;
     public float DashSpeed = 5f;
@@ -69,6 +74,7 @@ public class Player : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        canChange = false;
         rg = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         //transform.position = SpawnPoint.position;
@@ -101,7 +107,8 @@ public class Player : MonoBehaviour
 
     public void SwapFace(InputAction.CallbackContext context)
     {
-        face.sprite = psManager.SwapSprite(face.sprite);
+        if(canChange)
+            face.sprite = psManager.SwapSprite(face.sprite);
     }
 
     public void Taunt(InputAction.CallbackContext context)
@@ -403,5 +410,21 @@ public class Player : MonoBehaviour
         }
 
         return romano.ToString();
+    }
+
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        if(coll.gameObject.tag == "changing room")
+        {
+            canChange = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D coll)
+    {
+        if(coll.gameObject.tag == "changing room")
+        {
+            canChange = false;
+        }
     }
 }
