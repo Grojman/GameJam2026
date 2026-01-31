@@ -13,6 +13,8 @@ using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
+    public float originalGravity;
+    public bool WallSlide = false;
     bool cannotGetMask = false;
     float cannotGetMaskTimer = 0f;
     float cannotGetMaskCooldown = 2f;
@@ -100,6 +102,8 @@ public class Player : MonoBehaviour
         hurtPlayer.myPlayer = this;
 
         timebar.gameObject.SetActive(false);
+
+        originalGravity = rg.gravityScale;
     }
 
     public void EnableFamilyFriendly()
@@ -289,6 +293,15 @@ public class Player : MonoBehaviour
 
         float clampedY = Mathf.Max(rg.linearVelocity.y, -maxFallSpeed);
         if (Alive) rg.linearVelocity = new Vector2(rg.linearVelocity.x, clampedY);
+
+        if (WallSlide)
+        {
+            float maxFallSpeed = -2f; // ajusta a gusto
+            if (rg.linearVelocity.y < maxFallSpeed)
+            {
+                rg.linearVelocity = new Vector2(rg.linearVelocity.x, maxFallSpeed);
+            }
+        }
     }
 
     public void Dash(InputAction.CallbackContext context)

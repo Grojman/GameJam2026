@@ -1,13 +1,13 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class LaunchPad : MonoBehaviour
 {
+    public UnityEngine.UI.Image imageAnimator;
     public UnityEngine.UI.Slider slider;
     public TextMeshProUGUI label;
 
@@ -45,6 +45,7 @@ public class LaunchPad : MonoBehaviour
                 SceneManager.LoadScene("Scenaries");
 
                 //EMPEZAR PARTIDA
+                imageAnimator.GetComponent<Animator>().SetTrigger("Start");
             }
         }
     }

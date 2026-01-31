@@ -998,6 +998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b4b399f8d9161418520cd7d3e6cf15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  imageAnimator: {fileID: 0}
   slider: {fileID: 91941072}
   label: {fileID: 253909789}
   MaxPlayers: 0
