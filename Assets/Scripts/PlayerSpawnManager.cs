@@ -18,7 +18,7 @@ public class PlayerSpawnManager : MonoBehaviour
 
     public void Start()
     {
-        lobbyMusic.Play();
+        // lobbyMusic.Play();
         Shuffle<Sprite>(sprites);
     }
 

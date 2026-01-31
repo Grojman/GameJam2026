@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
     const float HURT_BOX_POS_Y = 0.74f;
     public GameObject HurtBox;
     HurtBoxPlayer hurtPlayer;
-    Animator animator;
+    public Animator animator;
     bool grounded = true;
     public int MaxJumps = 2;
     int jumpCounter = 0;
