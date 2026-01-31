@@ -545,6 +545,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2446835991700278603, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
+      propertyPath: burlaSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 69c927b76c8eb7143b73a5e96e72c73e, type: 3}
     - target: {fileID: 3066400346600165281, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
       propertyPath: m_Camera
       value: 

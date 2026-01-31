@@ -269,18 +269,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: OneHitMask
       objectReference: {fileID: 0}
-    - target: {fileID: 4022010264631398976, guid: 142bac920ec077f41a71e2d5c17b5259, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4022010264631398976, guid: 142bac920ec077f41a71e2d5c17b5259, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 4022010264631398976, guid: 142bac920ec077f41a71e2d5c17b5259, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.06
-      objectReference: {fileID: 0}
     - target: {fileID: 4571961213047501285, guid: 142bac920ec077f41a71e2d5c17b5259, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.42683
@@ -321,38 +309,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5535877771042601344, guid: 142bac920ec077f41a71e2d5c17b5259, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -6188768998144020764, guid: 7e082487b315d5b49849b167a77b90cb, type: 3}
-    m_RemovedComponents:
-    - {fileID: 7299465184394504313, guid: 142bac920ec077f41a71e2d5c17b5259, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1167658636909323185, guid: 142bac920ec077f41a71e2d5c17b5259, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1961373484}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 142bac920ec077f41a71e2d5c17b5259, type: 3}
---- !u!1 &1961373483 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1167658636909323185, guid: 142bac920ec077f41a71e2d5c17b5259, type: 3}
-  m_PrefabInstance: {fileID: 1961373482}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1961373484
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1961373483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e40f04e6e9a2f044a40a68c1746443a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  TimeMask: 5
-  CooldownMask: 5
 --- !u!1001 &3179323723851468420
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -575,10 +536,6 @@ PrefabInstance:
     - target: {fileID: 1512929800723990143, guid: fcc9a34273084ab4fac5f41308132177, type: 3}
       propertyPath: m_Name
       value: KnockBackMask
-      objectReference: {fileID: 0}
-    - target: {fileID: 2294297878664767487, guid: fcc9a34273084ab4fac5f41308132177, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

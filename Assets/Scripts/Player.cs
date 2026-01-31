@@ -13,6 +13,13 @@ using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
+    public AudioClip burlaSound;
+    public AudioClip punchSound;
+    public AudioClip pushSound;
+    public AudioClip getMaskSound;
+    public AudioClip jumpSound;
+    public AudioClip hitSound;
+    public AudioClip maskRemovedSound;
     public float originalGravity;
     public bool WallSlide = false;
     bool cannotGetMask = false;
@@ -145,6 +152,7 @@ public class Player : MonoBehaviour
     {
         if(context.started)
         {
+            AudioSource.PlayClipAtPoint(burlaSound, new Vector3(transform.position.x, transform.position.y, 0));
             animator.SetTrigger("Taunt");
         }
     }
@@ -265,6 +273,8 @@ public class Player : MonoBehaviour
             currentMask.transform.position = new Vector2(transform.position.x, transform.position.y);
             currentMask.Show();
             currentMask = null;
+            AudioSource.PlayClipAtPoint(maskRemovedSound, new Vector3(transform.position.x, transform.position.y));
+
 
         } else
         {
@@ -320,6 +330,7 @@ public class Player : MonoBehaviour
         Debug.Log($"{jumpCounter}\n");
         if(context.performed && (jumpCounter != 0 || grounded) && Alive)
         {
+            AudioSource.PlayClipAtPoint(jumpSound, new Vector3(transform.position.x, transform.position.y));
             if (!grounded)
             {
                 jumpCounter--;
@@ -333,6 +344,8 @@ public class Player : MonoBehaviour
     {
         if (context.started && !isPushOnCooldown && Alive)
         {
+            AudioSource.PlayClipAtPoint(pushSound, new Vector3(transform.position.x, transform.position.y));
+
             isPushOnCooldown = true;
             pushTimer = pushCooldown;
 
@@ -367,6 +380,8 @@ public class Player : MonoBehaviour
     {
         if (context.performed && !isPunchOnCooldown && Alive && !FamilyFriendly)
         {
+            AudioSource.PlayClipAtPoint(punchSound, new Vector3(transform.position.x, transform.position.y));
+
             isPunchOnCooldown = true;
             punchTimer = punchCooldown;
 
@@ -382,6 +397,8 @@ public class Player : MonoBehaviour
     {
         if(!maskTimerActive && !cannotGetMask)
         {
+            AudioSource.PlayClipAtPoint(getMaskSound, new Vector3(transform.position.x, transform.position.y));
+
             currentMask = mask;
             currentMask.Hide();
             saveFace = face.sprite;
@@ -405,6 +422,7 @@ public class Player : MonoBehaviour
     public void Hit(int hitPoints)
     {
         Debug.Log("Hitted\n");
+        AudioSource.PlayClipAtPoint(hitSound, new Vector3(transform.position.x, transform.position.y));
         HitPoints -= hitPoints;
         HealthSlider.value = (float)((float)HitPoints / DEFAULT_HIT_POINTS);
 
