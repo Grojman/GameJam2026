@@ -1,18 +1,15 @@
 using System;
-using System.Data.SqlTypes;
-using System.Drawing;
-using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
-using System.Security;
 using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.Audio;
 
 public class Player : MonoBehaviour
 {
+    public AudioSource audioSource;
     public AudioClip burlaSound;
     public AudioClip punchSound;
     public AudioClip pushSound;
@@ -111,6 +108,9 @@ public class Player : MonoBehaviour
         timebar.gameObject.SetActive(false);
 
         originalGravity = rg.gravityScale;
+
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     public void EnableFamilyFriendly()
@@ -152,7 +152,7 @@ public class Player : MonoBehaviour
     {
         if(context.started)
         {
-            AudioSource.PlayClipAtPoint(burlaSound, new Vector3(transform.position.x, transform.position.y, 0));
+            audioSource.PlayOneShot(burlaSound);
             animator.SetTrigger("Taunt");
         }
     }
@@ -273,8 +273,7 @@ public class Player : MonoBehaviour
             currentMask.transform.position = new Vector2(transform.position.x, transform.position.y);
             currentMask.Show();
             currentMask = null;
-            AudioSource.PlayClipAtPoint(maskRemovedSound, new Vector3(transform.position.x, transform.position.y));
-
+            audioSource.PlayOneShot(maskRemovedSound);
 
         } else
         {
@@ -330,7 +329,7 @@ public class Player : MonoBehaviour
         Debug.Log($"{jumpCounter}\n");
         if(context.performed && (jumpCounter != 0 || grounded) && Alive)
         {
-            AudioSource.PlayClipAtPoint(jumpSound, new Vector3(transform.position.x, transform.position.y));
+            audioSource.PlayOneShot(jumpSound);
             if (!grounded)
             {
                 jumpCounter--;
@@ -344,7 +343,7 @@ public class Player : MonoBehaviour
     {
         if (context.started && !isPushOnCooldown && Alive)
         {
-            AudioSource.PlayClipAtPoint(pushSound, new Vector3(transform.position.x, transform.position.y));
+            audioSource.PlayOneShot(pushSound);
 
             isPushOnCooldown = true;
             pushTimer = pushCooldown;
@@ -380,7 +379,7 @@ public class Player : MonoBehaviour
     {
         if (context.performed && !isPunchOnCooldown && Alive && !FamilyFriendly)
         {
-            AudioSource.PlayClipAtPoint(punchSound, new Vector3(transform.position.x, transform.position.y));
+            audioSource.PlayOneShot(punchSound);
 
             isPunchOnCooldown = true;
             punchTimer = punchCooldown;
@@ -397,7 +396,7 @@ public class Player : MonoBehaviour
     {
         if(!maskTimerActive && !cannotGetMask)
         {
-            AudioSource.PlayClipAtPoint(getMaskSound, new Vector3(transform.position.x, transform.position.y));
+            audioSource.PlayOneShot(getMaskSound);
 
             currentMask = mask;
             currentMask.Hide();
@@ -422,7 +421,7 @@ public class Player : MonoBehaviour
     public void Hit(int hitPoints)
     {
         Debug.Log("Hitted\n");
-        AudioSource.PlayClipAtPoint(hitSound, new Vector3(transform.position.x, transform.position.y));
+        audioSource.PlayOneShot(hitSound);
         HitPoints -= hitPoints;
         HealthSlider.value = (float)((float)HitPoints / DEFAULT_HIT_POINTS);
 
