@@ -1,21 +1,24 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI; // Necesario para componentes UI
 
 public class AudioController : MonoBehaviour
 {
-    public Slider sliderVolumen;
-    public AudioSource audioSource;
+    public AudioMixer mixer;
 
-    void Start()
+    public void Start()
     {
         // Inicializa el slider con el volumen actual
-        sliderVolumen.value = audioSource.volume;
-        // Escucha cambios en el slider
-        sliderVolumen.onValueChanged.AddListener(CambiarVolumen);
     }
 
-    public void CambiarVolumen(float valor)
+    public void ControlMusica(float sliderValue)
     {
-        audioSource.volume = valor;
+        mixer.SetFloat("VolumenMusica", Mathf.Log10(sliderValue) * 20);
     }
+
+    public void ControlSonido(float sliderValue)
+    {
+        mixer.SetFloat("VolumenSonido",  Mathf.Log10(sliderValue) * 20);
+    }
+
 }
