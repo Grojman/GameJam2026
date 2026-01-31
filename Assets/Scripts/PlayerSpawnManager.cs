@@ -35,7 +35,7 @@ public class PlayerSpawnManager : MonoBehaviour
     public void OnPlayerJoined(PlayerInput newPlayer)
     {
         int index = newPlayer.playerIndex;
-
+        Data_Static.playerList.Add(newPlayer);
         Debug.Log(index);        
         Debug.Log($"¡Jugador {index + 1} se ha unido con el mando: {newPlayer.devices[0].displayName}!");
 
@@ -56,6 +56,8 @@ public class PlayerSpawnManager : MonoBehaviour
 
         pad.GetComponent<LaunchPad>().MaxPlayers++;
         pad.GetComponent<LaunchPad>().UpdateLabel();
+
+
 
         // Aqui en se estableceran las vidas etc
     }

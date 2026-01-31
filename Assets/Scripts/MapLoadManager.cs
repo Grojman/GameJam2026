@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class MapLoadManager : MonoBehaviour
 {
@@ -10,11 +11,12 @@ public class MapLoadManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        foreach(GameObject pl in players)
+        foreach(PlayerInput pl in Data_Static.playerList)
         {
             Transform pos = positions[0];
             positions.Remove(pos);
-            Instantiate(prefab, pos);
+            pl.gameObject.transform.position = pos.position;
+            pl.GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 

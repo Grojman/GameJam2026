@@ -1,10 +1,14 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
+using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class LaunchPad : MonoBehaviour
 {
-    public Slider slider;
+    public UnityEngine.UI.Slider slider;
     public TextMeshProUGUI label;
 
 
@@ -33,6 +37,13 @@ public class LaunchPad : MonoBehaviour
             {
                 startCountDown = false;
 
+                foreach (PlayerInput pl in Data_Static.playerList)
+                {
+                    pl.GetComponent<SpriteRenderer>().enabled = false;
+                }
+
+                SceneManager.LoadScene("Scenarios");
+
                 //EMPEZAR PARTIDA
             }
         }
@@ -50,6 +61,17 @@ public class LaunchPad : MonoBehaviour
                 startCountDown = true;
                 countDown = 0;
             } 
+        }
+    }
+
+    public void Return()
+    {
+        MaxPlayers++;
+        UpdateLabel();
+        if (CurrentPlayers == MaxPlayers)
+        {
+            startCountDown = true;
+            countDown = 0;
         }
     }
 
