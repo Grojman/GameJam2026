@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public float DashSpeed = 5f;
     public GameObject head;
     public bool Alive = true;
     public SpriteRenderer face;
@@ -222,6 +223,17 @@ public class Player : MonoBehaviour
 
         float clampedY = Mathf.Max(rg.linearVelocity.y, -maxFallSpeed);
         if (Alive) rg.linearVelocity = new Vector2(rg.linearVelocity.x, clampedY);
+    }
+
+    public void Dash(InputAction.CallbackContext context)
+    {
+        if(context.started && Alive)
+        {
+            IAmBeingPushed = true;
+            beingPushedTimer = beingPushedCooldown;
+            
+            rg.AddForce(input * DashSpeed, ForceMode2D.Impulse);
+        }
     }
 
     public void Jump(InputAction.CallbackContext context)
