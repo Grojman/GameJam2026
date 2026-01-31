@@ -247,7 +247,10 @@ public class Player : MonoBehaviour
         Debug.Log($"{jumpCounter}\n");
         if(context.performed && (jumpCounter != 0 || grounded) && Alive)
         {
-
+            if(!grounded)
+            {
+                jumpCounter--;
+            }
             rg.linearVelocity = new Vector2(rg.linearVelocity.x, 0f);
             rg.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
         }
