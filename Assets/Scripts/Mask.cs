@@ -16,10 +16,10 @@ public class Mask : MonoBehaviour
     {
         if (shown)
         {
-            Debug.Log("Trigger");
             Player player = collision.GetComponent<Player>();
             if (player != null)
             {
+                Debug.Log("USUARIO RECIBIDO !!!");
                 player.GetMask(this);
             }
         }

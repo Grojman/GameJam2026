@@ -11,6 +11,9 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    bool cannotGetMask = false;
+    float cannotGetMaskTimer = 0f;
+    float cannotGetMaskCooldown = 2f;
     public bool canChange;
     public bool FamilyFriendly;
     public PlayerSpawnManager psManager;
@@ -88,6 +91,8 @@ public class Player : MonoBehaviour
         hurtPlayer = HurtBox.GetComponent<HurtBoxPlayer>();
 
         hurtPlayer.myPlayer = this;
+
+        timebar.gameObject.SetActive(false);
     }
 
     public void EnableFamilyFriendly()
@@ -169,6 +174,16 @@ public class Player : MonoBehaviour
             playerCanvas.transform.localScale = new Vector3(Mathf.Sign(input.x), 1, 1);
         }
 
+        if (cannotGetMask)
+        {
+            cannotGetMaskTimer -= Time.deltaTime;
+
+            if(cannotGetMaskTimer <= 0)
+            {
+                cannotGetMask = false;
+            }
+        }
+
         PositionHurtBox(input);
 
         if (isPushOnCooldown)
@@ -215,18 +230,18 @@ public class Player : MonoBehaviour
 
         if (maskTimer <= 0)
         {
-            
+            cannotGetMask = true;
+            cannotGetMaskTimer = cannotGetMaskCooldown;
             maskTimer = 0;
             maskTimerActive = false;
             timebar.gameObject.SetActive(false);
             currentMask.Close(this);
+            Debug.Log("Se acaba\n");
             face.sprite = saveFace;
             currentMask.transform.position = new Vector2(transform.position.x, transform.position.y);
             currentMask.Show();
             currentMask = null;
 
-
-            // currentMask.Close(this);
         } else
         {
             timebar.value = maskTimer / currentMask.TimeMask;
@@ -332,7 +347,7 @@ public class Player : MonoBehaviour
 
     public void GetMask(Mask mask)
     {
-        if(!maskTimerActive)
+        if(!maskTimerActive && !cannotGetMask)
         {
             currentMask = mask;
             currentMask.Hide();
@@ -413,24 +428,5 @@ public class Player : MonoBehaviour
         }
 
         return romano.ToString();
-    }
-
-    void OnTriggerEnter2D(Collider2D coll)
-    {
-        if(coll.gameObject.tag == "changing room")
-        {
-            Debug.Log("PUede\n");
-            canChange = true;
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D coll)
-    {
-        if(coll.gameObject.tag == "changing room")
-        {
-            Debug.Log("NO PUede\n");
-
-            canChange = false;
-        }
     }
 }
