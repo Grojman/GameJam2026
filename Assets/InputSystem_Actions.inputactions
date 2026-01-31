@@ -630,6 +630,17 @@
                     "action": "ChangeSkin",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6362f70c-523d-47a4-9059-9ca2d7703f18",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeSkin",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
