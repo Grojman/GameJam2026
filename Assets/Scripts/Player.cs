@@ -425,6 +425,7 @@ public class Player : MonoBehaviour
         face.enabled = false;
         playerCanvas.enabled = false;
         rg.bodyType = RigidbodyType2D.Static;
+        Data_Static.alivePLayers--;
     }
 
     public void Revive()
