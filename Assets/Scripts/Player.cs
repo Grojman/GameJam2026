@@ -7,6 +7,20 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    float beingPushedTimer = 0;
+    public float beingPushedCooldown = 0.5f;
+    bool IAmBeingPushed = false;
+    public float pushCooldown = 0.75f;
+    float pushTimer = 0;
+    bool isPushOnCooldown = false;
+
+
+    public float punchCooldown = 0.5f;
+    float punchTimer = 0;
+    bool isPunchOnCooldown = false;
+
+
+    public Slider HealthSlider;
     public float ActionCooldown = 5f;
     public float KnocBackForce = 5f;
     const float HURT_BOX_POS_X = 1.12f;
@@ -73,7 +87,7 @@ public class Player : MonoBehaviour
 
     void PositionHurtBox(Vector2 input)
     {
-        float xValue = input.x != 0 ? HURT_BOX_POS_X : 0;
+        float xValue = HURT_BOX_POS_X;
 
         float yValue = input.y switch
         {
@@ -121,6 +135,39 @@ public class Player : MonoBehaviour
 
         PositionHurtBox(input);
 
+        if (isPushOnCooldown)
+        {
+            pushTimer -= Time.deltaTime;
+
+            if (pushTimer <= 0)
+            {
+                pushTimer = 0;
+                isPushOnCooldown = false;
+            }
+        }
+
+        if(isPunchOnCooldown)
+        {
+            punchTimer -= Time.deltaTime;
+
+            if (punchTimer <= 0)
+            {
+                punchTimer = 0;
+                isPunchOnCooldown = false;
+            }
+        }
+
+        if(IAmBeingPushed)
+        {
+            beingPushedTimer -= Time.deltaTime;
+
+            if (beingPushedTimer <= 0)
+            {
+                IAmBeingPushed = false;
+                beingPushedTimer = 0;
+            }
+        }
+
 
         animator.SetBool("Jumping", !grounded);
         animator.SetFloat("AnimationSpeed", Math.Abs(input.x));
@@ -146,7 +193,10 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        rg.linearVelocity = new Vector2(input.x * Speed, rg.linearVelocity.y);
+        if (!IAmBeingPushed)
+        {
+            rg.linearVelocity = new Vector2(input.x * Speed, rg.linearVelocity.y);
+        }
 
         //Gravedad dinámica
 
@@ -178,8 +228,12 @@ public class Player : MonoBehaviour
 
     public void Push(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started && !isPushOnCooldown)
         {
+            isPushOnCooldown = true;
+            pushTimer = pushCooldown;
+
+            animator.SetTrigger("Push");
             foreach(Player p in hurtPlayer.hittingPlayers)
             {
                 
@@ -187,7 +241,7 @@ public class Player : MonoBehaviour
                     input.x switch
                     {
                         > 0 => 1,
-                        0 => 0,
+                        0 => playerCanvas.transform.localScale.x,
                         < 0 => -1
                     },
                     input.y switch
@@ -197,8 +251,10 @@ public class Player : MonoBehaviour
                         < 0 => -1
                     }
                 );
-
-                p.rg.AddForce(force * KnocBackForce);
+                Debug.Log("Aplicando fuerza a p\n");
+                p.IAmBeingPushed = true;
+                p.beingPushedTimer = p.beingPushedCooldown;
+                p.rg.AddForce(force * KnocBackForce, ForceMode2D.Impulse);
             }
         }
     }
@@ -206,8 +262,11 @@ public class Player : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && !isPunchOnCooldown)
         {
+            isPunchOnCooldown = true;
+            punchTimer = punchCooldown;
+
             Debug.Log("Atacando\n");
 
             if (attackAction is not null) attackAction(this);
@@ -238,6 +297,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Hitted\n");
         HitPoints -= hitPoints;
+        HealthSlider.value = (float)((float)HitPoints / DEFAULT_HIT_POINTS);
 
         if (HitPoints == 0)
         {
