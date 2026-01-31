@@ -347,6 +347,7 @@ public class Player : MonoBehaviour
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
         head.GetComponent<SpriteRenderer>().enabled = false;
+        face.enabled = false;
         playerCanvas.enabled = false;
         rg.bodyType = RigidbodyType2D.Static;
     }
@@ -359,6 +360,7 @@ public class Player : MonoBehaviour
         GetComponent<SpriteRenderer>().enabled = true;
         head.GetComponent<SpriteRenderer>().enabled = true;
         playerCanvas.enabled = true;
+        face.enabled = true;
         rg.bodyType = RigidbodyType2D.Dynamic;
     }
 
