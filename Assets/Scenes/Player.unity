@@ -545,6 +545,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2652213661360845658, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 2652213661360845658, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3066400346600165281, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
       propertyPath: m_Camera
       value: 
@@ -556,6 +564,18 @@ PrefabInstance:
     - target: {fileID: 3804079660447502620, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332505713873525451, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332505713873525451, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332505713873525451, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.203
       objectReference: {fileID: 0}
     - target: {fileID: 8007342005370819420, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
       propertyPath: m_LocalPosition.x
@@ -604,6 +624,18 @@ PrefabInstance:
     - target: {fileID: 8554531418587964335, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9201889931177795671, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 845.4877
+      objectReference: {fileID: 0}
+    - target: {fileID: 9201889931177795671, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 9201889931177795671, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.844
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

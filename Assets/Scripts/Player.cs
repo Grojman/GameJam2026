@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     public SpriteRenderer face;
     Sprite saveFace;
     float beingPushedTimer = 0;
-    public float beingPushedCooldown = 0.5f;
+    public float beingPushedCooldown = 0.35f;
     bool IAmBeingPushed = false;
     public float pushCooldown = 0.75f;
     float pushTimer = 0;
