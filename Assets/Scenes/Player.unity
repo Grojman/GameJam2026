@@ -627,6 +627,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1196479278 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2446835991700278603, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
+  m_PrefabInstance: {fileID: 6719961596048203035}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36a6174fa800e747b2fe0cb33c58cd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!4 &1196479279 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8007342005370819420, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
@@ -734,6 +745,34 @@ PrefabInstance:
     - target: {fileID: 854859663590540844, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
       propertyPath: m_SortingOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225486489313485600, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225486489313485600, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225486489313485600, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1196479278}
+    - target: {fileID: 1225486489313485600, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225486489313485600, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Taunt
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225486489313485600, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Player, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225486489313485600, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1338778724503119788, guid: 37a94d26bd1bf93489f22f41af6830ba, type: 3}
       propertyPath: m_Name
