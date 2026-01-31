@@ -71,7 +71,6 @@ public class Player : MonoBehaviour
         nameVisual.text = $"{name} {ARomano(DeathCount)}";
         animator = GetComponent<Animator>();
         animator.SetFloat("AnimationSpeed", Speed);
-        defaultGravity = rg.gravityScale;
 
         hurtPlayer = HurtBox.GetComponent<HurtBoxPlayer>();
 
