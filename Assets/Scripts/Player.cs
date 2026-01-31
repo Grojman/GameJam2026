@@ -1,5 +1,6 @@
 using System;
 using System.Data.SqlTypes;
+using System.Drawing;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Security;
@@ -8,6 +9,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
@@ -70,6 +72,8 @@ public class Player : MonoBehaviour
     public int HitPoints;
     public Transform SpawnPoint;
     Canvas playerCanvas;
+    public List<UnityEngine.Color> colors;
+    public int color = 0;
 
     public float fallMultiplier = 2.5f; // Multiplicador de gravedad al caer
     public float maxFallSpeed = 20f;    // Velocidad máxima de caída (Para que no atraviese el suelo)
@@ -79,6 +83,8 @@ public class Player : MonoBehaviour
     void Awake()
     {
         canChange = false;
+        body.color = colors[color];
+        head.GetComponent<SpriteRenderer>().color = colors[color];
         rg = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         //transform.position = SpawnPoint.position;
@@ -120,11 +126,15 @@ public class Player : MonoBehaviour
 
     public void CangeSkin(InputAction.CallbackContext context)
     {
+        Debug.Log($"{canChange}\n");
         if(canChange && context.performed)
         {
-            
+            color++;
+            if(color >= colors.Count)
+                color = 0;
+            body.color = colors[color];
+            head.GetComponent<SpriteRenderer>().color = colors[color];
         }
-
     }
 
     public void Taunt(InputAction.CallbackContext context)
@@ -404,7 +414,7 @@ public class Player : MonoBehaviour
         rg.bodyType = RigidbodyType2D.Static;
     }
 
-    void Revive()
+    public void Revive()
     {
         Alive = true;
         HitPoints = DEFAULT_HIT_POINTS;

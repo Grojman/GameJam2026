@@ -113,6 +113,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeSkin",
+                    "type": "Button",
+                    "id": "e66bda83-8d82-4777-9b07-c21de8e549fd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -608,6 +617,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SwapFace",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "77be0f3d-e855-41ca-ad5a-d18e85f89693",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeSkin",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

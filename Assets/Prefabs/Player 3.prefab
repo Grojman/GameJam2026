@@ -94,7 +94,7 @@ MonoBehaviour:
   psManager: {fileID: 0}
   DashSpeed: 50
   head: {fileID: 6844031724359639355}
-  body: {fileID: 1338778724503119788}
+  body: {fileID: 9165846580520949406}
   Alive: 1
   face: {fileID: 1379949190333714859}
   beingPushedCooldown: 0.5
@@ -124,6 +124,15 @@ MonoBehaviour:
   JumpForce: 40
   HitPoints: 0
   SpawnPoint: {fileID: 0}
+  colors:
+  - {r: 1, g: 0.7916593, b: 0.5943396, a: 1}
+  - {r: 0.97647065, g: 0.6862745, b: 0.41176474, a: 1}
+  - {r: 0.6754716, g: 0.40891168, b: 0.15676033, a: 1}
+  - {r: 0.5396226, g: 0.27999282, b: 0.03563538, a: 1}
+  - {r: 0.4188679, g: 0.20747343, b: 0.01185468, a: 1}
+  - {r: 0.2905661, g: 0.14282651, b: 0.0060306103, a: 1}
+  - {r: 0.13962269, g: 0.06690619, b: 0.001844066, a: 1}
+  color: 0
   fallMultiplier: 1
   maxFallSpeed: 20
   defaultGravity: 25
@@ -466,6 +475,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: bbe77cbe-e9bb-41b5-8366-a21caca20f43
     m_ActionName: 'Player/SwapFace[/Keyboard/r,/XInputControllerWindows/rightShoulder]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2446835991700278603}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: CangeSkin
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e66bda83-8d82-4777-9b07-c21de8e549fd
+    m_ActionName: 'Player/ChangeSkin[/XInputControllerWindows/leftShoulder]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
