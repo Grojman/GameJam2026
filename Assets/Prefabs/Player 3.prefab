@@ -94,6 +94,7 @@ MonoBehaviour:
   psManager: {fileID: 0}
   DashSpeed: 50
   head: {fileID: 6844031724359639355}
+  body: {fileID: 1338778724503119788}
   Alive: 1
   face: {fileID: 1379949190333714859}
   beingPushedCooldown: 0.5

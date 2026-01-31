@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public PlayerSpawnManager psManager;
     public float DashSpeed = 5f;
     public GameObject head;
+    public SpriteRenderer body;
     public bool Alive = true;
     public SpriteRenderer face;
     Sprite saveFace;
@@ -115,6 +116,15 @@ public class Player : MonoBehaviour
         Debug.Log($"{canChange}\n");
         if(canChange && context.performed)
             face.sprite = psManager.SwapSprite(face.sprite);
+    }
+
+    public void CangeSkin(InputAction.CallbackContext context)
+    {
+        if(canChange && context.performed)
+        {
+            
+        }
+
     }
 
     public void Taunt(InputAction.CallbackContext context)
@@ -381,7 +391,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Kill()
+    public void Kill()
     {
         DeathCount++;
         nameVisual.text = $"{name} {ARomano(DeathCount)}";
