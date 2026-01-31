@@ -15,8 +15,6 @@ public class Player : MonoBehaviour
     public AudioClip pushSound;
     public AudioClip getMaskSound;
     public AudioClip jumpSound;
-    public AudioClip hitSound;
-    public AudioClip maskRemovedSound;
     public float originalGravity;
     public bool WallSlide = false;
     bool cannotGetMask = false;
@@ -273,7 +271,6 @@ public class Player : MonoBehaviour
             currentMask.transform.position = new Vector2(transform.position.x, transform.position.y);
             currentMask.Show();
             currentMask = null;
-            audioSource.PlayOneShot(maskRemovedSound);
 
         } else
         {
@@ -421,7 +418,6 @@ public class Player : MonoBehaviour
     public void Hit(int hitPoints)
     {
         Debug.Log("Hitted\n");
-        audioSource.PlayOneShot(hitSound);
         HitPoints -= hitPoints;
         HealthSlider.value = (float)((float)HitPoints / DEFAULT_HIT_POINTS);
 
