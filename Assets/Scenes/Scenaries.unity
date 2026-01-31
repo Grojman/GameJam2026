@@ -181,7 +181,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6.57
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -287,13 +287,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RandomMapGenerator
   Maps:
   - {fileID: 7556073013232899514, guid: b86354f57008b9946aa7ed3dd838e4eb, type: 3}
-  - {fileID: 7556073013232899514, guid: 0f6eea6d55b4cbd43b1c1bc19d6b546d, type: 3}
-  - {fileID: 7556073013232899514, guid: 0f6eea6d55b4cbd43b1c1bc19d6b546d, type: 3}
-  - {fileID: 7556073013232899514, guid: 0f6eea6d55b4cbd43b1c1bc19d6b546d, type: 3}
-  - {fileID: 7556073013232899514, guid: 0f6eea6d55b4cbd43b1c1bc19d6b546d, type: 3}
-  - {fileID: 7556073013232899514, guid: 0f6eea6d55b4cbd43b1c1bc19d6b546d, type: 3}
-  - {fileID: 7556073013232899514, guid: 0f6eea6d55b4cbd43b1c1bc19d6b546d, type: 3}
-  - {fileID: 7556073013232899514, guid: 0f6eea6d55b4cbd43b1c1bc19d6b546d, type: 3}
+  - {fileID: 7556073013232899514, guid: aee4ca8c53a4d7c47a3b5f28a6468b6e, type: 3}
+  - {fileID: 2058800427015921311, guid: 441be98021b4b7b4dbf18b83d7c1b33d, type: 3}
+  - {fileID: 7556073013232899514, guid: aee4ca8c53a4d7c47a3b5f28a6468b6e, type: 3}
+  - {fileID: 7556073013232899514, guid: b86354f57008b9946aa7ed3dd838e4eb, type: 3}
+  - {fileID: 7556073013232899514, guid: aee4ca8c53a4d7c47a3b5f28a6468b6e, type: 3}
+  - {fileID: 7556073013232899514, guid: b86354f57008b9946aa7ed3dd838e4eb, type: 3}
+  - {fileID: 7556073013232899514, guid: aee4ca8c53a4d7c47a3b5f28a6468b6e, type: 3}
 --- !u!4 &1947849257
 Transform:
   m_ObjectHideFlags: 0

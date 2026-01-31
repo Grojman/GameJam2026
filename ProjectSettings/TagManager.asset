@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - LaunchPad
+  - wall_slide
   layers:
   - Default
   - TransparentFX
