@@ -8,14 +8,15 @@ TagManager:
   - LaunchPad
   - wall_slide
   - changing room
+  - dead_zone
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - "Atr\xE1s"
   - Water
   - UI
-  - 
+  - Delante
   - 
   - 
   - 
@@ -42,8 +43,17 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Suelo
+    uniqueID: 2223437801
+    locked: 0
+  - name: Atras
+    uniqueID: 1435440377
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Delante
+    uniqueID: 2811303991
     locked: 0
   m_RenderingLayers:
   - Default

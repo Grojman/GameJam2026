@@ -229,10 +229,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36a6174fa800e747b2fe0cb33c58cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  originalGravity: 0
+  WallSlide: 0
   canChange: 0
   FamilyFriendly: 0
   psManager: {fileID: 0}
-  DashSpeed: 50
+  DashSpeed: 15
   head: {fileID: 6844031724359639355}
   body: {fileID: 9165846580520949406}
   Alive: 1
