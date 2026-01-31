@@ -10,7 +10,7 @@ public class PlayerSpawnManager : MonoBehaviour
     public Transform[] spawnPoints;
 
     [Header("Caras por Jugador (Opcional visual)")]
-    [SerializeField] Sprite[] sprites;
+    [SerializeField] List<Sprite> sprites;
     private System.Random rng = new System.Random();
 
 
@@ -32,6 +32,21 @@ public class PlayerSpawnManager : MonoBehaviour
         }
     }
 
+    public Sprite SwapSprite(Sprite sprite)
+    {
+        Sprite result;
+        if(sprites.Count > 0)
+        {
+            result = sprites[0];
+            sprites.RemoveAt(0);
+            sprites.Add(sprite);
+        } else
+        {
+            result = sprite;
+        }
+        return result;
+    }
+
     // Esta función se llamará automáticamente cuando el PlayerInputManager detecte un mando nuevo
     public void OnPlayerJoined(PlayerInput newPlayer)
     {
@@ -49,9 +64,11 @@ public class PlayerSpawnManager : MonoBehaviour
 
         //Cambiar la cara para diferenciarlos
         Player player = newPlayer.GetComponent<Player>();
-        if (player != null && sprites.Length > index)
+        player.psManager = this;
+        if (player != null && sprites.Count > 0)
         {
-            player.face.sprite = sprites[index];
+            player.face.sprite = sprites[0];
+            sprites.RemoveAt(0);
         }
 
         GameObject pad = GameObject.FindGameObjectWithTag("LaunchPad");

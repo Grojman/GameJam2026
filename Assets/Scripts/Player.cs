@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public PlayerSpawnManager psManager;
     public float DashSpeed = 5f;
     public GameObject head;
     public bool Alive = true;
@@ -79,6 +80,11 @@ public class Player : MonoBehaviour
         hurtPlayer = HurtBox.GetComponent<HurtBoxPlayer>();
 
         hurtPlayer.myPlayer = this;
+    }
+
+    public void SwapFace(InputAction.CallbackContext context)
+    {
+        face.sprite = psManager.SwapSprite(face.sprite);
     }
 
     public void Taunt(InputAction.CallbackContext context)
