@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
     public void OnTouchGround()
     {
         Debug.Log("Enter \n");
+        animator.SetBool("Jumping", !grounded);
         grounded = true;
         jumpCounter = MaxJumps;
     }
@@ -57,6 +58,7 @@ public class Player : MonoBehaviour
     public void OnLeaveGround()
     {
         Debug.Log("Leave \n");
+        animator.SetBool("Jumping", !grounded);
         grounded = false;
     }
 
@@ -107,6 +109,7 @@ public class Player : MonoBehaviour
         Debug.Log($"{jumpCounter}\n");
         if(context.performed && (jumpCounter != 0 || grounded))
         {
+            animator.SetBool("Jumping", !grounded);
             rg.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
             jumpCounter--;
         }
