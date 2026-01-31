@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 //Aquí me colé yo
 public class Mask : MonoBehaviour
@@ -28,12 +29,14 @@ public class Mask : MonoBehaviour
     public void Hide()
     {
         GetComponent<SpriteRenderer>().enabled = false;
+        GetComponentInChildren<TextMeshProUGUI>().enabled = false;
         shown = false;
     }
 
     public void Show()
     {
         shown = true;
+        GetComponentInChildren<TextMeshProUGUI>().enabled = true;
         GetComponent<SpriteRenderer>().enabled = true;
     }
 
