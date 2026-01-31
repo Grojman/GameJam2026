@@ -628,6 +628,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpeedMask
       objectReference: {fileID: 0}
+    - target: {fileID: 7090348238032970074, guid: 2f37248a76166d849b32ca6e0805e530, type: 3}
+      propertyPath: m_Size.x
+      value: 1.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090348238032970074, guid: 2f37248a76166d849b32ca6e0805e530, type: 3}
+      propertyPath: m_Size.y
+      value: 2.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090348238032970074, guid: 2f37248a76166d849b32ca6e0805e530, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 225864d67a5ef90439b86ff62c800f00, type: 3}
+    - target: {fileID: 7090348238032970074, guid: 2f37248a76166d849b32ca6e0805e530, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8750197432910283827, guid: 2f37248a76166d849b32ca6e0805e530, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.34164998
@@ -1200,7 +1216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &810073179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1344,7 +1360,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   fadeInOut: {fileID: 467769661}
-  imageAnimator: {fileID: 467769662}
   slider: {fileID: 91941072}
   label: {fileID: 253909789}
   MaxPlayers: 0
@@ -1537,6 +1552,14 @@ PrefabInstance:
     - target: {fileID: 5869987164331904306, guid: b781fc8d20917fe488cda7fe5f75ebcc, type: 3}
       propertyPath: m_Name
       value: JumpMask
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752569021063636917, guid: b781fc8d20917fe488cda7fe5f75ebcc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 61bcbb865705b0d4a82cf5b26e952ae9, type: 3}
+    - target: {fileID: 7752569021063636917, guid: b781fc8d20917fe488cda7fe5f75ebcc, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1956,6 +1979,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawnManager
   spawnPoints:
   - {fileID: 76208564}
+  - {fileID: 1465981785}
+  - {fileID: 1465981785}
   - {fileID: 1465981785}
   sprites:
   - {fileID: 21300000, guid: e86578f72e9af764f8a0c51115823c19, type: 3}

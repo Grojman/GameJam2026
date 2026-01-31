@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 public class LaunchPad : MonoBehaviour
 {
     public FadeInOut fadeInOut;
-    public UnityEngine.UI.Image imageAnimator;
     public UnityEngine.UI.Slider slider;
     public TextMeshProUGUI label;
 
@@ -47,8 +46,6 @@ public class LaunchPad : MonoBehaviour
 
                     SceneManager.LoadScene("Scenaries");
 
-                    //EMPEZAR PARTIDA
-                    imageAnimator.GetComponent<Animator>().SetTrigger("Start");
                 });
 
                 
