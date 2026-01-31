@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -7,6 +8,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public SpriteRenderer face;
     public float ActionCooldown = 5f;
     public float KnocBackForce = 5f;
     const float HURT_BOX_POS_X = 1.12f;
