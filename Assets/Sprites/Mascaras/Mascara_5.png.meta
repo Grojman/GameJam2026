@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 225864d67a5ef90439b86ff62c800f00
+guid: d992a769d0106ab48b90b9928e181def
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8193520069391034178
-    second: Mascara_1 1_0
+      213: 2950067725035805644
+    second: Mascara_5_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Mascara_1 1_0
+      name: Mascara_5_0
       rect:
         serializedVersion: 2
-        x: 79
+        x: 75
         y: 0
-        width: 69
-        height: 142
+        width: 75
+        height: 118
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: eb8d9e378e4ca4e80800000000000000
-      internalID: -8193520069391034178
+      spriteID: ccb9a1e37feb0f820800000000000000
+      internalID: 2950067725035805644
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Mascara_1 1_0: -8193520069391034178
+      Mascara_5_0: 2950067725035805644
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

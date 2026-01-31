@@ -6,6 +6,8 @@ using UnityEditor;
 
 public class PlayerSpawnManager : MonoBehaviour
 {
+    public AudioSource lobbyMusic;
+
     [Header("Posiciones de Inicio")]
     public Transform[] spawnPoints;
 
@@ -16,6 +18,7 @@ public class PlayerSpawnManager : MonoBehaviour
 
     public void Start()
     {
+        lobbyMusic.Play();
         Shuffle<Sprite>(sprites);
     }
 
@@ -64,6 +67,7 @@ public class PlayerSpawnManager : MonoBehaviour
 
         //Cambiar la cara para diferenciarlos
         Player player = newPlayer.GetComponent<Player>();
+        player.EnableFamilyFriendly();
         player.SpawnPoint = spawnPoints[index];
         player.psManager = this;
         if (player != null && sprites.Count > 0)
