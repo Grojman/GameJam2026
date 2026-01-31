@@ -232,8 +232,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   audioSource: {fileID: 0}
   burlaSound: {fileID: 8300000, guid: 69c927b76c8eb7143b73a5e96e72c73e, type: 3}
-  punchSound: {fileID: 8300000, guid: b9de9beee58bf0f4d81c6edee7cb0363, type: 3}
-  pushSound: {fileID: 8300000, guid: 9eed177605adeba4dba0ccf10558ad16, type: 3}
+  punchSound: {fileID: 8300000, guid: 9eed177605adeba4dba0ccf10558ad16, type: 3}
+  pushSound: {fileID: 8300000, guid: aed51bb896fcb9345b0e9c4bb66c513d, type: 3}
   getMaskSound: {fileID: 8300000, guid: 37b0c06303a1f124e874ec76939a48e5, type: 3}
   jumpSound: {fileID: 8300000, guid: 5f98cb22543b08d4b930b0fa11cf01f5, type: 3}
   originalGravity: 0
@@ -655,7 +655,7 @@ AudioSource:
   m_GameObject: {fileID: 1338778724503119788}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 7f19199de379c8945aa6bfc6822a3e88, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
