@@ -1,0 +1,73 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class LaunchPad : MonoBehaviour
+{
+    public Slider slider;
+    public TextMeshProUGUI label;
+
+
+    bool startCountDown = false;
+    float countDown = 0f;
+    const float COUNT_DOWN = 5f;
+    public int MaxPlayers;
+    public int CurrentPlayers;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        UpdateLabel();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if(startCountDown)
+        {
+            countDown += Time.deltaTime;
+
+            slider.value = countDown / COUNT_DOWN;
+
+            if (countDown >= COUNT_DOWN)
+            {
+                startCountDown = false;
+
+                //EMPEZAR PARTIDA
+            }
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        Player player = collision.GetComponent<Player>();
+        if (player != null)
+        {
+            CurrentPlayers++;
+            UpdateLabel();
+            if(CurrentPlayers == MaxPlayers)
+            {
+                startCountDown = true;
+                countDown = 0;
+            } 
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        Player player = collision.GetComponent<Player>();
+        if (player != null)
+        {
+            CurrentPlayers--;
+            UpdateLabel();
+            slider.value = 0;
+            countDown = 0;
+            startCountDown = false;
+        }
+    }
+
+    void UpdateLabel()
+    {
+        label.text = $"{CurrentPlayers} / {MaxPlayers}";
+    }
+}

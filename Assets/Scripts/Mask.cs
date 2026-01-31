@@ -13,6 +13,7 @@ public class Mask : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("Trigger");
         Player player = collision.GetComponent<Player>();
         if (player != null)
         {

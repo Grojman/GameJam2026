@@ -1,11 +1,18 @@
 using System;
 using System.Text;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    Animator animator;
+    bool grounded = true;
+    public int MaxJumps = 2;
+    int jumpCounter = 0;
+    public string name;
+    public TextMeshProUGUI nameVisual;
     public int DeathCount = 0;
     public LayerMask HitMask;
     public Action<Player> attackAction;
@@ -35,19 +42,38 @@ public class Player : MonoBehaviour
         HitPoints = DEFAULT_HIT_POINTS;
         // AttackDirection = playerInput.actions["Aim"].ReadValue<Vector2>();
 
-        maskTimerActive = true;
-        maskTimer = 10f;
+        nameVisual.text = $"{name} {ARomano(DeathCount)}";
+        animator = GetComponent<Animator>();
+        animator.SetFloat("AnimationSpeed", Speed);
+    }
+
+    public void OnTouchGround()
+    {
+        Debug.Log("Enter \n");
+        grounded = true;
+        jumpCounter = MaxJumps;
+    }
+
+    public void OnLeaveGround()
+    {
+        Debug.Log("Leave \n");
+        grounded = false;
     }
 
 
     // Update is called once per frame
     void Update()
-    {
+    {   
         if (maskTimerActive) HandleTimeBar();
 
-        // input = playerInput.actions["Move"].ReadValue<Vector2>();
+        input = playerInput.actions["Move"].ReadValue<Vector2>();
         // AttackDirection = playerInput.actions["Aim"].ReadValue<Vector2>();
-        // movement = new Vector3(input.x, 0f, input.y) * Speed;
+        movement = new Vector3(input.x, 0f, input.y) * Speed;
+        
+        transform.localScale = new Vector3(input.x > 0 ? 1 : -1 , 1, 1);
+
+
+        animator.SetFloat("AnimationSpeed", Math.Abs(input.x));
     }
 
     void HandleTimeBar()
@@ -63,25 +89,26 @@ public class Player : MonoBehaviour
             // currentMask.Close(this);
         } else
         {
-            timebar.value = maskTimer / 10f;
+            timebar.value = maskTimer / currentMask.TimeMask;
             // timeFill.fillAmount = maskTimer / currentMask.TimeMask;
         }
     }
 
     void FixedUpdate()
     {
-        // rg.linearVelocity = new Vector2(input.x * Speed, rg.linearVelocity.y);
-        //rg.linearVelocity = new Vector2(movement.x, rg.linearVelocity.y);
-        /*movement = new Vector3(input.x,0f, input.y) * Speed;
-        rg.AddForce(movement);*/
+        rg.linearVelocity = new Vector2(input.x * Speed, rg.linearVelocity.y);
+        rg.linearVelocity = new Vector2(movement.x, rg.linearVelocity.y);
+        movement = new Vector3(input.x,0f, input.y) * Speed;
+        rg.AddForce(movement);
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if(context.performed)
+        Debug.Log($"{jumpCounter}\n");
+        if(context.performed && (jumpCounter != 0 || grounded))
         {
             rg.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
-
+            jumpCounter--;
         }
     }
 
@@ -93,6 +120,8 @@ public class Player : MonoBehaviour
     {
         if (context.performed)
         {
+            Debug.Log("Atacando\n");
+
             if (attackAction is not null) attackAction(this);
             else DefaultAttack();
             //Si tiene una mascara que cambie su ataque, pues eso
@@ -132,7 +161,8 @@ public class Player : MonoBehaviour
 
     public void Hit(int hitPoints)
     {
-        this.HitPoints -= hitPoints;
+        Debug.Log("Hitted\n");
+        HitPoints -= hitPoints;
 
         if (HitPoints == 0)
         {
