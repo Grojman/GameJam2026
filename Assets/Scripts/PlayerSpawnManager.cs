@@ -1,14 +1,35 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using System;
 
 public class PlayerSpawnManager : MonoBehaviour
 {
     [Header("Posiciones de Inicio")]
     public Transform[] spawnPoints;
 
-    [Header("Colores por Jugador (Opcional visual)")]
-    public Color[] playerColors;
+    [Header("Caras por Jugador (Opcional visual)")]
+    [SerializeField] Sprite[] sprites;
+    private System.Random rng = new System.Random();
+
+
+    public void Start()
+    {
+        Shuffle<Sprite>(sprites);
+    }
+
+    public void Shuffle<T>(IList<T> list)
+    {
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+    }
 
     // Esta función se llamará automáticamente cuando el PlayerInputManager detecte un mando nuevo
     public void OnPlayerJoined(PlayerInput newPlayer)
@@ -24,11 +45,11 @@ public class PlayerSpawnManager : MonoBehaviour
             newPlayer.transform.position = spawnPoints[index].position;
         }
 
-        //Cambiar el color para diferenciarlos
-        SpriteRenderer sr = newPlayer.GetComponent<SpriteRenderer>();
-        if (sr != null && playerColors.Length > index)
+        //Cambiar la cara para diferenciarlos
+        Player player = newPlayer.GetComponent<Player>();
+        if (player != null && sprites.Length > index)
         {
-            sr.color = playerColors[index];
+            player.face.sprite = sprites[index];
         }
 
         GameObject pad = GameObject.FindGameObjectWithTag("LaunchPad");

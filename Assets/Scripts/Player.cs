@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public SpriteRenderer face;
     float beingPushedTimer = 0;
     public float beingPushedCooldown = 0.5f;
     bool IAmBeingPushed = false;
