@@ -42,7 +42,7 @@ public class LaunchPad : MonoBehaviour
                     pl.GetComponent<SpriteRenderer>().enabled = false;
                 }
 
-                SceneManager.LoadScene("Scenarios");
+                SceneManager.LoadScene("Scenaries");
 
                 //EMPEZAR PARTIDA
             }
@@ -64,15 +64,13 @@ public class LaunchPad : MonoBehaviour
         }
     }
 
-    public void Return()
+    public void Reset()
     {
-        MaxPlayers++;
+        //MaxPlayers++;
         UpdateLabel();
-        if (CurrentPlayers == MaxPlayers)
-        {
-            startCountDown = true;
-            countDown = 0;
-        }
+        slider.value = 0;
+        countDown = 0;
+        startCountDown = false;
     }
 
     public void OnTriggerExit2D(Collider2D collision)

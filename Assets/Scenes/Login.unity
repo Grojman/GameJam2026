@@ -1133,9 +1133,12 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 76208564}
   - {fileID: 1465981785}
-  playerColors:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0.14053488, g: 0, b: 1, a: 1}
+  sprites:
+  - {fileID: 21300000, guid: e86578f72e9af764f8a0c51115823c19, type: 3}
+  - {fileID: 21300000, guid: 415b80fbe9cc23a4ca31409ad00123a0, type: 3}
+  - {fileID: 21300000, guid: eb8c2eb6198eb4244970a1e2a50e9b6f, type: 3}
+  - {fileID: 21300000, guid: 021d21305963b954bb20ab36b18b6a01, type: 3}
+  - {fileID: 21300000, guid: 2acfff7388aa23e489b097a5a6c5470d, type: 3}
 --- !u!1 &1569576481
 GameObject:
   m_ObjectHideFlags: 0

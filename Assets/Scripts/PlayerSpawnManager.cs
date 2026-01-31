@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System;
+using UnityEditor;
 
 public class PlayerSpawnManager : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class PlayerSpawnManager : MonoBehaviour
     // Esta función se llamará automáticamente cuando el PlayerInputManager detecte un mando nuevo
     public void OnPlayerJoined(PlayerInput newPlayer)
     {
+        DontDestroyOnLoad(newPlayer.gameObject);
         int index = newPlayer.playerIndex;
         Data_Static.playerList.Add(newPlayer);
         Debug.Log(index);        
@@ -57,6 +59,7 @@ public class PlayerSpawnManager : MonoBehaviour
         pad.GetComponent<LaunchPad>().MaxPlayers++;
         pad.GetComponent<LaunchPad>().UpdateLabel();
 
+        GameObject.FindGameObjectWithTag("LaunchPad").GetComponent<LaunchPad>().Reset();
 
 
         // Aqui en se estableceran las vidas etc
