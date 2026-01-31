@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
     public Slider timebar;
     Mask? currentMask;
     float maskTimer = 0f;
-    bool maskTimerActive = true; //Lo pongo en false para pruebas
+    bool maskTimerActive = false; //Lo pongo en false para pruebas
     public int AttackDamage = 1;
     public Vector2 AttackSize = new Vector2(1f, 1f);
     public Vector2 AttackDirection;
@@ -107,7 +107,8 @@ public class Player : MonoBehaviour
 
     public void SwapFace(InputAction.CallbackContext context)
     {
-        if(canChange)
+        Debug.Log($"{canChange}\n");
+        if(canChange && context.performed)
             face.sprite = psManager.SwapSprite(face.sprite);
     }
 
@@ -367,6 +368,8 @@ public class Player : MonoBehaviour
 
     void Kill()
     {
+        DeathCount++;
+        nameVisual.text = $"{name} {ARomano(DeathCount)}";
         Alive = false;
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
@@ -416,6 +419,7 @@ public class Player : MonoBehaviour
     {
         if(coll.gameObject.tag == "changing room")
         {
+            Debug.Log("PUede\n");
             canChange = true;
         }
     }
@@ -424,6 +428,8 @@ public class Player : MonoBehaviour
     {
         if(coll.gameObject.tag == "changing room")
         {
+            Debug.Log("NO PUede\n");
+
             canChange = false;
         }
     }
