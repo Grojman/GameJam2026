@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f764c0c0b3360744a9eb4b6b3f15b18e
+guid: c67dc6b0ea385ce44b4d3da35bff675c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1058611961002670379
-    second: Parallax_2_0
+      213: -2082125849450027015
+    second: Fondo2(ANIMADO)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Parallax_2_0
+      name: Fondo2(ANIMADO)_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 1920
-        height: 1080
+        height: 842
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b293b8248f1f0be00800000000000000
-      internalID: 1058611961002670379
+      spriteID: 9f76fdd429dca13e0800000000000000
+      internalID: -2082125849450027015
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Parallax_2_0: 1058611961002670379
+      Fondo2(ANIMADO)_0: -2082125849450027015
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

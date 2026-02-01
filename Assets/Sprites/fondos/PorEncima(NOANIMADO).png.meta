@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 04abe8e443a2d484c8cc9a4d2d35cc70
+guid: 1c191b5ec476eca48936bbe22d6634f8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5572353435429890290
-    second: Parallax_1_0
+      213: 5671078144199599566
+    second: PorEncima(NOANIMADO)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Parallax_1_0
+      name: PorEncima(NOANIMADO)_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 1920
-        height: 1080
+        height: 349
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e071646f2160ba2b0800000000000000
-      internalID: -5572353435429890290
+      spriteID: ec5af768687b3be40800000000000000
+      internalID: 5671078144199599566
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Parallax_1_0: -5572353435429890290
+      PorEncima(NOANIMADO)_0: 5671078144199599566
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

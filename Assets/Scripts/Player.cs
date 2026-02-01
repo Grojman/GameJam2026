@@ -431,7 +431,7 @@ public class Player : MonoBehaviour
         Debug.Log("Hitted\n");
         HitPoints -= hitPoints;
         HealthSlider.value = (float)((float)HitPoints / DEFAULT_HIT_POINTS);
-
+        Debug.Log($"Vida: {HitPoints} | Max: {DEFAULT_HIT_POINTS} | Slider debe ir a: {(float)((float)HitPoints / DEFAULT_HIT_POINTS)}");
         if (HitPoints <= 0)
         {
             Kill();

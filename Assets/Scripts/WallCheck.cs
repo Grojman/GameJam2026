@@ -5,9 +5,9 @@ public class WallCheck : MonoBehaviour
     public Player player;
 
 
-    public void OnTriggerEnter2D(Collider2D c)
+    public void OnCollisionEnter2D(Collision2D c)
     {
-        if(c.CompareTag("Ground"))
+        if(c.gameObject.tag == "Ground")
         {
             Debug.Log("Pared");
             player.animator.SetBool("Walling", true);
@@ -16,9 +16,9 @@ public class WallCheck : MonoBehaviour
         }
     }
 
-    public void OnTriggerExit2D(Collider2D collision)
+    public void OnCollisionExit2D(Collision2D collision)
     {
-        if(collision.CompareTag("Ground"))
+        if(collision.gameObject.tag == "Ground")
         {
             Debug.Log("FueraPared");
             player.WallSlide = false;
