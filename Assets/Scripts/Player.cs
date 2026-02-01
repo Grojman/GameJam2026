@@ -195,6 +195,7 @@ public class Player : MonoBehaviour
         if (maskTimerActive) HandleTimeBar();
 
         input = playerInput.actions["Move"].ReadValue<Vector2>();
+        Debug.Log("Input: "+ input);    
         // AttackDirection = playerInput.actions["Aim"].ReadValue<Vector2>();
         movement = new Vector3(input.x, 0f, input.y) * Speed;
 

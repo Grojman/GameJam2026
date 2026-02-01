@@ -68,7 +68,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.41676328, y: 0.6805607}
+  m_Offset: {x: -0.41676328, y: 0.60545367}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -78,7 +78,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.21895522, y: 1.5538352}
+  m_Size: {x: 0.21895522, y: 1.7040492}
   m_EdgeRadius: 0
 --- !u!61 &7135136111404746921
 BoxCollider2D:
@@ -114,7 +114,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.49892694, y: 0.6852541}
+  m_Offset: {x: 0.49892694, y: 0.5819813}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -124,7 +124,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.25186384, y: 1.4881263}
+  m_Size: {x: 0.25186384, y: 1.6946719}
   m_EdgeRadius: 0
 --- !u!114 &6970687876059861378
 MonoBehaviour:
@@ -281,7 +281,6 @@ MonoBehaviour:
   - {r: 0.5396226, g: 0.27999282, b: 0.03563538, a: 1}
   - {r: 0.4188679, g: 0.20747343, b: 0.01185468, a: 1}
   - {r: 0.2905661, g: 0.14282651, b: 0.0060306103, a: 1}
-  - {r: 0.13962269, g: 0.06690619, b: 0.001844066, a: 1}
   color: 0
   fallMultiplier: 1
   maxFallSpeed: 20

@@ -13,6 +13,7 @@ public class WallCheck : MonoBehaviour
             player.animator.SetBool("Walling", true);
             player.WallSlide = true;
             player.rg.gravityScale *=  0.1f;
+            //player.jumpCounter = player.MaxJumps;
         }
     }
 
