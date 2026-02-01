@@ -357,10 +357,8 @@ public class Player : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        Debug.Log($"{jumpCounter}\n");
         if(context.performed && (jumpCounter != 0 || grounded) && Alive)
         {
-            Hit(1);
             audioSource.PlayOneShot(jumpSound);
             if (!grounded)
             {
