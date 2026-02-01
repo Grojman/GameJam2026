@@ -83,12 +83,28 @@ public class Player : MonoBehaviour
     public float maxFallSpeed = 20f;    // Velocidad máxima de caída (Para que no atraviese el suelo)
     public float defaultGravity;
 
+    public Color hitColor = Color.red;
+    float hitColorTimer = 0f;
+    bool isHitted = false;
+    float hitColorCooldown = 0.5f;
+
+    void SetRedHitColor()
+    {
+        body.color = hitColor;
+        head.GetComponent<SpriteRenderer>().color = hitColor;
+    }
+
+    void RestoreColor()
+    {
+        body.color = colors[color];
+        head.GetComponent<SpriteRenderer>().color = colors[color];
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         canChange = false;
-        body.color = colors[color];
-        head.GetComponent<SpriteRenderer>().color = colors[color];
+        RestoreColor();
         rg = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         //transform.position = SpawnPoint.position;
@@ -174,7 +190,6 @@ public class Player : MonoBehaviour
 
     public void OnTouchGround()
     {
-        Debug.Log("Enter \n");
         animator.SetBool("Jumping", !grounded);
         grounded = true;
         jumpCounter = MaxJumps;
@@ -182,7 +197,6 @@ public class Player : MonoBehaviour
 
     public void OnLeaveGround()
     {
-        Debug.Log("Leave \n");
         jumpCounter--;
         animator.SetBool("Jumping", !grounded);
         grounded = false;
@@ -195,7 +209,6 @@ public class Player : MonoBehaviour
         if (maskTimerActive) HandleTimeBar();
 
         input = playerInput.actions["Move"].ReadValue<Vector2>();
-        Debug.Log("Input: "+ input);    
         // AttackDirection = playerInput.actions["Aim"].ReadValue<Vector2>();
         movement = new Vector3(input.x, 0f, input.y) * Speed;
 
@@ -204,6 +217,18 @@ public class Player : MonoBehaviour
             transform.localScale = new Vector3(Mathf.Sign(input.x) * Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             playerCanvas.transform.localScale = new Vector3(Mathf.Sign(input.x) * Math.Abs(playerCanvas.transform.localScale.x), playerCanvas.transform.localScale.y,
                 playerCanvas.transform.localScale.z);
+        }
+
+        if (isHitted)
+        {
+            hitColorTimer -= Time.deltaTime;
+
+            if (hitColorTimer <= 0)
+            {
+                hitColorTimer = 0;
+                isHitted = false;
+                RestoreColor();
+            }
         }
 
         if (cannotGetMask)
@@ -335,6 +360,7 @@ public class Player : MonoBehaviour
         Debug.Log($"{jumpCounter}\n");
         if(context.performed && (jumpCounter != 0 || grounded) && Alive)
         {
+            Hit(1);
             audioSource.PlayOneShot(jumpSound);
             if (!grounded)
             {
@@ -430,9 +456,13 @@ public class Player : MonoBehaviour
     public void Hit(int hitPoints)
     {
         Debug.Log("Hitted\n");
+        isHitted = true;
+        hitColorTimer = hitColorCooldown;
+        SetRedHitColor();
+
         HitPoints -= hitPoints;
         HealthSlider.value = (float)((float)HitPoints / DEFAULT_HIT_POINTS);
-        Debug.Log($"Vida: {HitPoints} | Max: {DEFAULT_HIT_POINTS} | Slider debe ir a: {(float)((float)HitPoints / DEFAULT_HIT_POINTS)}");
+        Debug.Log($"Vida: {HitPoints} | Max: {DEFAULT_HIT_POINTS} | Slider debe ir a: {(float)((float)HitPoints / DEFAULT_HIT_POINTS)}\n");
         if (HitPoints <= 0)
         {
             Kill();
@@ -470,7 +500,7 @@ public class Player : MonoBehaviour
     public static string ARomano(int numero)
     {
         if(numero == 0) return string.Empty;
-        if (numero <= 1 || numero > 3999)
+        if (numero < 1 || numero > 3999)
             return "Número fuera de rango (1-3999)";
 
         // Pares de valores y sus símbolos romanos

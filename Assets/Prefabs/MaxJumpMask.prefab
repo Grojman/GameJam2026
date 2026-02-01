@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4571961213047501285}
   - component: {fileID: 5535877771042601344}
   - component: {fileID: 4022010264631398976}
-  - component: {fileID: 448864868456273521}
+  - component: {fileID: 1318783055163047628}
   m_Layer: 0
   m_Name: MaxJumpMask
   m_TagString: Untagged
@@ -140,7 +140,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.58, y: 2.22}
   m_EdgeRadius: 0
---- !u!114 &448864868456273521
+--- !u!114 &1318783055163047628
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,9 +149,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1167658636909323185}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e40f04e6e9a2f044a40a68c1746443a, type: 3}
+  m_Script: {fileID: 11500000, guid: 53c47ce6d415ce9418bafd12378ba604, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
+  m_EditorClassIdentifier: Assembly-CSharp::MaxJumpMask
   TimeMask: 5
   CooldownMask: 5
 --- !u!1 &7938871095345916247
