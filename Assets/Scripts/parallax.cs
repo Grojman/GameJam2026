@@ -1,32 +1,51 @@
 using UnityEngine;
 
-public class parallax : MonoBehaviour
+public class Parallax : MonoBehaviour
 {
-    [Header("Configuración")]
-    public float speed = 2f; // Velocidad de movimiento (MÁS ALTA = MÁS CERCA)
+    [Header("Configuración del Parallax")]
+    [Tooltip("Arrastra aquí tu Main Camera. Si lo dejas vacío, la buscará automáticamente.")]
+    public GameObject cam;
 
-    private float width;
+    [Tooltip("0 = Se mueve igual que la cámara (fondo infinito muy lejano). 1 = Se queda estático (objeto muy cercano).")]
+    public float parallaxEffect;
+
+    private float length;
+    private float startpos;
 
     void Start()
     {
-        // Calculamos el ancho exacto de la imagen automáticamente
-        // (Asegúrate de que la imagen tiene un SpriteRenderer)
-        width = GetComponent<SpriteRenderer>().bounds.size.x;
+        // Si no asignas la cámara en el inspector, la busca por ti
+        if (cam == null)
+        {
+            cam = Camera.main.gameObject;
+        }
+
+        // Guardamos la posición inicial y el ancho del Sprite
+        startpos = transform.position.x;
+        length = GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
-    void Update()
+    void LateUpdate()
     {
-        // 1. Movemos la imagen a la izquierda constantemente
-        transform.Translate(Vector2.left * speed * Time.deltaTime);
+        // Calcula cuánto se ha movido la cámara en el mundo real
+        float temp = (cam.transform.position.x * (1 - parallaxEffect));
 
-        // 2. Si la imagen se ha salido totalmente de la pantalla (hacia la izquierda)
-        // La teletransportamos a la derecha para que vuelva a entrar
-        if (transform.position.x <= -width)
+        // Calcula cuánto se debe mover ESTE fondo en base a su efecto Parallax
+        float dist = (cam.transform.position.x * parallaxEffect);
+
+        // Movemos el fondo
+        transform.position = new Vector3(startpos + dist, transform.position.y, transform.position.z);
+
+        // --- EFECTO INFINITO ---
+        // Si la cámara sobrepasa la imagen por la derecha, reposicionamos el inicio
+        if (temp > startpos + length)
         {
-            // La movemos 2 veces su ancho a la derecha para ponerla justo detrás de su "gemela"
-            // (Asumiendo que el punto de pivote está en el centro)
-            Vector2 resetPosition = new Vector2(width * 2f, 0);
-            transform.position = (Vector2)transform.position + resetPosition;
+            startpos += length;
+        }
+        // Si la cámara sobrepasa la imagen por la izquierda, reposicionamos el inicio
+        else if (temp < startpos - length)
+        {
+            startpos -= length;
         }
     }
 }

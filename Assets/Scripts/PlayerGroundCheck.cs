@@ -3,31 +3,28 @@ using UnityEngine;
 public class PlayerGroundCheck : MonoBehaviour
 {
     public Player player;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    private int groundContacts = 0;
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        
-    }
-
-    void OnTriggerStay2D(Collider2D collision)
-    {
-        if(collision.CompareTag("Ground"))
+        if (collision.CompareTag("Ground"))
         {
+            groundContacts++;
             player.OnTouchGround();
         }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.CompareTag("Ground"))
+        if (collision.CompareTag("Ground"))
         {
-            player.OnLeaveGround();
+            groundContacts--;
+
+            if (groundContacts <= 0)
+            {
+                groundContacts = 0;
+                player.OnLeaveGround();
+            }
         }
     }
 }

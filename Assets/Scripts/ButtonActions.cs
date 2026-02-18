@@ -11,32 +11,34 @@ public class ButtonActions : MonoBehaviour
     [SerializeField] Button firstOptions;
     public void Jugar()
     {
-        Debug.Log("pito");
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Login");
     }
 
     public void Opciones()
     {
-        Debug.Log("pito");
+        Time.timeScale = 1f;
         panelOpciones.SetActive(true);
         firstOptions.Select();
     }
 
     public void Creditos()
     {
+        Time.timeScale = 1f;
         panelCreditos.SetActive(true);
-        Debug.Log("pito");
         firstCredits.Select();
     }
 
     public void OpcionesSalir()
     {
+        Time.timeScale = 1f;
         panelOpciones.SetActive(false);
         firstMain.Select();
     }
 
     public void CreditosSalir()
     {
+        Time.timeScale = 1f;
         panelCreditos.SetActive(false);
         firstMain.Select();
     }

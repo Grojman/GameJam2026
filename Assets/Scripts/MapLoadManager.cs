@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class MapLoadManager : MonoBehaviour
 {
     [SerializeField] List<Transform> positions;
-    [SerializeField] List<Transform> masksPositions;
-    [SerializeField] List<Mask> mask = new();
+    /*[SerializeField] List<Transform> masksPositions;
+    [SerializeField] List<Mask> mask = new();*/
     [SerializeField] List<GameObject> players;
     [SerializeField] GameObject prefab;
     private FadeInOut fade;
@@ -44,14 +44,14 @@ public class MapLoadManager : MonoBehaviour
             pl.GetComponent<Player>().SetHealthBar();
         }
 
-        var transform = masksPositions[0];
+        /*var transform = masksPositions[0];
         Instantiate(mask[new System.Random().Next(mask.Count)], transform.position, transform.rotation);
 
         if(Data_Static.playerList.Count > 2)
         {
             var secondTransform = masksPositions[1];
             Instantiate(mask[new System.Random().Next(mask.Count)], secondTransform.position, secondTransform.rotation);
-        }
+        }*/
     }
 
     private void LateUpdate()

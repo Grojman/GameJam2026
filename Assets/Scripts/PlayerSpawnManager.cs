@@ -11,7 +11,7 @@ public class PlayerSpawnManager : MonoBehaviour
     int playerCount = 0;
     readonly string[] PLAYER_NAMES = new string[] {"Evasilio", "Filadelfo", "Segismunda", "Segismundo", "Onesíforo", "Telesforo", "Unga", "Godofredo", "Casimiro"};
     public AudioSource lobbyMusic;
-    [SerializeField] TextMeshProUGUI pressAToenter; 
+    public PlayerCountUI scriptDelTexto;
 
     [Header("Posiciones de Inicio")]
     public Transform[] spawnPoints;
@@ -59,6 +59,7 @@ public class PlayerSpawnManager : MonoBehaviour
     public void OnPlayerJoined(PlayerInput newPlayer)
     {
         playerCount++;
+        scriptDelTexto.ActualizarTexto(playerCount);
         DontDestroyOnLoad(newPlayer.gameObject);
         int index = newPlayer.playerIndex;
         Data_Static.playerList.Add(newPlayer);
@@ -89,8 +90,6 @@ public class PlayerSpawnManager : MonoBehaviour
         pad.GetComponent<LaunchPad>().MaxPlayers++;
         pad.GetComponent<LaunchPad>().UpdateLabel();
 
-        pressAToenter.enabled = playerCount < 3;
-
         GameObject.FindGameObjectWithTag("LaunchPad").GetComponent<LaunchPad>().Reset();
 
 
@@ -100,7 +99,6 @@ public class PlayerSpawnManager : MonoBehaviour
     public void OnPlayerLeft(PlayerInput leftPlayer)
     {
         playerCount--;
-        pressAToenter.enabled = playerCount < 3;
         Debug.Log($"Jugador {leftPlayer.playerIndex + 1} se ha desconectado.");
     }
 }
