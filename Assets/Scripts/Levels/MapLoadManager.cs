@@ -64,6 +64,7 @@ public class MapLoadManager : MonoBehaviour
             {
                 var player = pl.GetComponent<Player>();
                 player.ForceRemoveMask();
+                player.OnLeaveMask();
                 if(player.Alive) alivePlayer = pl;
             }
             if (alivePlayer != null) TriggerZoom(alivePlayer.transform);

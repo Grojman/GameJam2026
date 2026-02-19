@@ -68,7 +68,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.41676328, y: 0.60545367}
+  m_Offset: {x: -0.41676328, y: 0.5121178}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -78,7 +78,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.21895522, y: 1.7040492}
+  m_Size: {x: 0.21895522, y: 1.5173775}
   m_EdgeRadius: 0
 --- !u!61 &7135136111404746921
 BoxCollider2D:
@@ -110,11 +110,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.49892694, y: 0.5819813}
+  m_Offset: {x: 0.49892694, y: 0.5121178}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -124,7 +124,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.25186384, y: 1.6946719}
+  m_Size: {x: 0.25186384, y: 1.517377}
   m_EdgeRadius: 0
 --- !u!114 &6970687876059861378
 MonoBehaviour:
@@ -172,7 +172,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.954, y: 1.69, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0.66}
+  m_LocalScale: {x: 0.66, y: 0.66, z: 0.66}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 504362289772458504}
@@ -210,15 +210,11 @@ MonoBehaviour:
   body: {fileID: 9165846580520949406}
   Alive: 1
   face: {fileID: 1379949190333714859}
-  beingPushedCooldown: 0.5
-  pushCooldown: 0.75
-  punchCooldown: 0.5
   healthBarContainer: {fileID: 2381615925230002581}
   healthBarFill: {fileID: 5227834580408924863}
   timeBarContainer: {fileID: 5962427469899720685}
   timeBarFill: {fileID: 4807014875441971252}
-  ActionCooldown: 5
-  KnocBackForce: 10
+  KnocBackForce: 50
   HurtBox: {fileID: 5978894850707368901}
   animator: {fileID: 0}
   MaxJumps: 2
@@ -1041,7 +1037,7 @@ GameObject:
   - component: {fileID: 4845067032103524698}
   m_Layer: 0
   m_Name: HurtBox
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

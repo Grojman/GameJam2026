@@ -13,6 +13,17 @@ public class Mask : MonoBehaviour
         
     }
 
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (shown)
+        {
+            Player player = collision.GetComponent<Player>();
+            if(player != null)
+            {
+                player.OnLeaveMask();
+            }
+        }
+    }
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (shown)

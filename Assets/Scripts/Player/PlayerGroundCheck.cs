@@ -7,7 +7,7 @@ public class PlayerGroundCheck : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Ground"))
+        if (collision.CompareTag("Ground") || collision.CompareTag("Player"))
         {
             groundContacts++;
             player.OnTouchGround();
@@ -16,6 +16,7 @@ public class PlayerGroundCheck : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
+        Debug.Log($"Collision tag: {collision.tag} \n");
         if (collision.CompareTag("Ground"))
         {
             groundContacts--;

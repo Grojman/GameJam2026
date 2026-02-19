@@ -1,0 +1,49 @@
+# --- VIDA ---
+DEFAULT_HIT_POINTS//3
+AttackDamage//1
+Damage//5
+KnockBackForce//5
+HitColorCooldown//0,5
+
+# --- MOVIMIENTO ---
+Speed//12
+JumpForce//40
+DashSpeed//50
+FallMultiplier//1
+MaxFallSpeed//20
+WallSlideMaxFallSpeed//-2
+
+# --- SALTO ---
+MaxJumps//2
+
+# --- ATAQUE ---
+AttackSizeX//1
+AttackSizeY//1
+
+# --- HURTBOX ---
+HurtBoxPosX//1,12
+HurtBoxPosY//0,74
+
+# --- DASH ---
+DashTime//0,3
+DashCooldown//0,5
+
+# --- PUSH ---
+PushCooldown//0,75
+BeingPushedCooldown//0,35
+
+# --- PUNCH ---
+PunchCooldown//0,5
+
+# --- MASK ---
+CannotGetMaskCooldown//3
+
+# --- GRAVEDAD ---
+DefaultGravity//1
+OriginalGravity//1
+
+# --- WALL ---
+WallSlideEnabled//true
+
+# --- UI ---
+FamilyFriendlyDefault//false

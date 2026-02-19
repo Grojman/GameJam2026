@@ -16,8 +16,6 @@ public class ChangingRoom : MonoBehaviour
         var player = coll.GetComponent<Player>();
         if(player != null)
         {
-            Debug.Log("NO PUede\n");
-
             player.canChange = false;
         }
     }

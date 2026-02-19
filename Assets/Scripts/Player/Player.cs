@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.Audio;
+using System.IO;
 
 public class Player : MonoBehaviour
 {
@@ -17,28 +18,15 @@ public class Player : MonoBehaviour
     public AudioClip jumpSound;
     public float originalGravity;
     public bool WallSlide = false;
-    bool cannotGetMask = false;
-    float cannotGetMaskTimer = 0f;
-    float cannotGetMaskCooldown = 3f;
     public bool canChange;
     public bool FamilyFriendly;
     public PlayerSpawnManager psManager;
-    public float DashSpeed = 5f;
+    public float DashSpeed = 50f;
     public GameObject head;
     public SpriteRenderer body;
     public bool Alive = true;
     public SpriteRenderer face;
     Sprite saveFace;
-    float beingPushedTimer = 0;
-    public float beingPushedCooldown = 0.35f;
-    bool IAmBeingPushed = false;
-    public float pushCooldown = 0.75f;
-    float pushTimer = 0;
-    bool isPushOnCooldown = false;
-
-    public float punchCooldown = 0.5f;
-    float punchTimer = 0;
-    bool isPunchOnCooldown = false;
 
     [Header("UI: Vida y Tiempo (Fill Amount)")]
     public GameObject healthBarContainer; // Objeto padre de la vida (Para apagarlo entero)
@@ -46,10 +34,7 @@ public class Player : MonoBehaviour
     public GameObject timeBarContainer;   // Objeto padre de la máscara
     public Image timeBarFill;             // Reemplaza al Slider de tiempo
 
-    public float ActionCooldown = 5f;
     public float KnocBackForce = 5f;
-    const float HURT_BOX_POS_X = 1.12f;
-    const float HURT_BOX_POS_Y = 0.74f;
     public GameObject HurtBox;
     HurtBoxPlayer hurtPlayer;
     public Animator animator;
@@ -64,9 +49,7 @@ public class Player : MonoBehaviour
     public LayerMask HitMask;
     public Action<Player> attackAction;
 
-    Mask? currentMask;
-    float maskTimer = 0f;
-    bool maskTimerActive = false;
+    
     public int AttackDamage = 1;
     public Vector2 AttackSize = new Vector2(1f, 1f);
     public Vector2 AttackDirection;
@@ -74,7 +57,6 @@ public class Player : MonoBehaviour
     public PlayerInput playerInput;
     public Vector2 input;
     public Vector2 movement;
-    public const int DEFAULT_HIT_POINTS = 3;
     public float Speed = 5f;
     public float Damage = 5f;
     public float JumpForce = 5f;
@@ -89,29 +71,67 @@ public class Player : MonoBehaviour
     public float defaultGravity;
 
     public Color hitColor = Color.red;
-    float hitColorTimer = 0f;
-    bool isHitted = false;
-    float hitColorCooldown = 0.5f;
 
-    void SetRedHitColor()
-    {
-        body.color = hitColor;
-        head.GetComponent<SpriteRenderer>().color = hitColor;
-    }
 
-    void RestoreColor()
-    {
-        body.color = colors[color];
-        head.GetComponent<SpriteRenderer>().color = colors[color];
-    }
+    SimpleTimer beingPushedTimer;
+    SimpleTimer pushTimer;
+    SimpleTimer punchTimer;
+    SimpleTimer hitTimer;
+    SimpleTimer cannotGetMaskTimer;
+    SimpleTimer maskTimer;
+    SimpleTimer dashTimer;
+    SimpleTimer dashCooldownTimer;
+    Mask? currentMask;
+    Mask? hittingMask;
+
+    int defaultHitPoints;
+    float hurtBoxPosX;
+    float hurtBoxPosY;
+    ConfigManager config;
+
+    static float GetDeltaTime() => Time.deltaTime;
 
     void Awake()
     {
+        config = new(Path.Combine(Application.streamingAssetsPath, "Config", "player_config.txt"));
+
+        defaultHitPoints = config.Get<int>("DEFAULT_HIT_POINTS");
+        hurtBoxPosX = config.Get<float>("HurtBoxPosX");
+        hurtBoxPosY = config.Get<float>("HurtBoxPosY");
+
+        Speed = config.Get<float>("Speed", Speed);
+        JumpForce = config.Get<float>("JumpForce", JumpForce);
+        DashSpeed = config.Get<float>("DashSpeed", DashSpeed);
+        MaxJumps = config.Get<int>("MaxJumps", MaxJumps);
+        fallMultiplier = config.Get<float>("FallMultiplier", fallMultiplier);
+        maxFallSpeed = config.Get<float>("MaxFallSpeed", maxFallSpeed);
+
+        dashTimer = new(config.Get<float>("DashTime"), 0, GetDeltaTime)
+        {
+            OnEnd = () => {
+                rg.gravityScale = defaultGravity;
+                dashCooldownTimer.Start();
+            }
+        };
+        dashCooldownTimer = new(config.Get<float>("DashCooldown"), 0, GetDeltaTime);
+        beingPushedTimer = new(config.Get<float>("BeingPushedCooldown"), 0, GetDeltaTime);
+        pushTimer = new(config.Get<float>("PushCooldown"), 0, GetDeltaTime);
+        hitTimer = new(config.Get<float>("HitColorCooldown"), 0, GetDeltaTime)
+        {
+            OnEnd = RestoreColor,
+            OnStart = SetRedHitColor  
+        };
+        cannotGetMaskTimer = new(config.Get<float>("CannotGetMaskCooldown"), 0, GetDeltaTime)
+        {
+            OnEnd = UseMaskIfStillTouchingIt  
+        };
+        punchTimer = new(config.Get<float>("PunchCooldown"), 0, GetDeltaTime);
+
         canChange = false;
         RestoreColor();
         rg = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
-        HitPoints = DEFAULT_HIT_POINTS;
+        HitPoints = defaultHitPoints;
         playerCanvas = GetComponentInChildren<Canvas>();
 
         SetNameVisual(); // Ponemos el nombre limpio
@@ -127,6 +147,23 @@ public class Player : MonoBehaviour
 
         originalGravity = rg.gravityScale;
         audioSource = GetComponent<AudioSource>();
+
+        maskTimer = new(-1, 0, GetDeltaTime)
+        {
+            OnEnd = ForceRemoveMask
+        };
+    }
+
+    void SetRedHitColor()
+    {
+        body.color = hitColor;
+        head.GetComponent<SpriteRenderer>().color = hitColor;
+    }
+
+    void RestoreColor()
+    {
+        body.color = colors[color];
+        head.GetComponent<SpriteRenderer>().color = colors[color];
     }
 
     public void EnableFamilyFriendly()
@@ -171,12 +208,12 @@ public class Player : MonoBehaviour
 
     void PositionHurtBox(Vector2 input)
     {
-        float xValue = HURT_BOX_POS_X;
+        float xValue = hurtBoxPosX;
         float yValue = input.y switch
         {
-            > 0 => HURT_BOX_POS_Y,
+            > 0 => hurtBoxPosY,
             0 => 0,
-            < 0 => -HURT_BOX_POS_Y
+            < 0 => -hurtBoxPosY
         };
         HurtBox.transform.localPosition = new Vector2(xValue, yValue);
     }
@@ -219,7 +256,16 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (maskTimerActive) HandleTimeBar();
+        dashTimer.Update();
+        dashCooldownTimer.Update();
+        maskTimer.Update();
+
+        if (maskTimer.IsActive && 
+            timeBarFill != null &&
+            currentMask != null)
+        {
+            timeBarFill.fillAmount = maskTimer.Timer / currentMask.TimeMask;
+        }
 
         input = playerInput.actions["Move"].ReadValue<Vector2>();
         movement = new Vector3(input.x, 0f, input.y) * Speed;
@@ -230,54 +276,18 @@ public class Player : MonoBehaviour
             playerCanvas.transform.localScale = new Vector3(Mathf.Sign(input.x) * Math.Abs(playerCanvas.transform.localScale.x), playerCanvas.transform.localScale.y, playerCanvas.transform.localScale.z);
         }
 
-        if (isHitted)
-        {
-            hitColorTimer -= Time.deltaTime;
-            if (hitColorTimer <= 0)
-            {
-                hitColorTimer = 0;
-                isHitted = false;
-                RestoreColor();
-            }
-        }
+        hitTimer.Update();
 
-        if (cannotGetMask)
-        {
-            cannotGetMaskTimer -= Time.deltaTime;
-            if (cannotGetMaskTimer <= 0) cannotGetMask = false;
-        }
+        cannotGetMaskTimer.Update();
 
         PositionHurtBox(input);
 
-        if (isPushOnCooldown)
-        {
-            pushTimer -= Time.deltaTime;
-            if (pushTimer <= 0)
-            {
-                pushTimer = 0;
-                isPushOnCooldown = false;
-            }
-        }
 
-        if (isPunchOnCooldown)
-        {
-            punchTimer -= Time.deltaTime;
-            if (punchTimer <= 0)
-            {
-                punchTimer = 0;
-                isPunchOnCooldown = false;
-            }
-        }
+        pushTimer.Update();
 
-        if (IAmBeingPushed)
-        {
-            beingPushedTimer -= Time.deltaTime;
-            if (beingPushedTimer <= 0)
-            {
-                IAmBeingPushed = false;
-                beingPushedTimer = 0;
-            }
-        }
+        punchTimer.Update();
+
+        beingPushedTimer.Update();
 
         animator.SetBool("Jumping", !grounded);
         animator.SetFloat("AnimationSpeed", Math.Abs(input.x));
@@ -287,10 +297,8 @@ public class Player : MonoBehaviour
     {
         if (currentMask != null)
         {
-            cannotGetMask = true;
-            cannotGetMaskTimer = cannotGetMaskCooldown;
-            maskTimer = 0;
-            maskTimerActive = false;
+            maskTimer.StopTimer();
+            cannotGetMaskTimer.Start();
 
             if (timeBarContainer != null) timeBarContainer.SetActive(false);
             else if (timeBarFill != null) timeBarFill.gameObject.SetActive(false);
@@ -303,60 +311,48 @@ public class Player : MonoBehaviour
         }
     }
 
-    void HandleTimeBar()
-    {
-        maskTimer -= Time.deltaTime;
-
-        if (maskTimer <= 0)
-        {
-            ForceRemoveMask();
-        }
-        else
-        {
-            if (timeBarFill != null) timeBarFill.fillAmount = maskTimer / currentMask.TimeMask;
-        }
-    }
-
     void FixedUpdate()
     {
-        if (!IAmBeingPushed && Alive)
+        if(!dashTimer.IsActive)
         {
-            rg.linearVelocity = new Vector2(input.x * Speed, rg.linearVelocity.y);
-        }
-
-        if (rg.linearVelocity.y < 0) rg.gravityScale = defaultGravity * fallMultiplier;
-        else rg.gravityScale = defaultGravity;
-
-        float clampedY = Mathf.Max(rg.linearVelocity.y, -maxFallSpeed);
-        if (Alive) rg.linearVelocity = new Vector2(rg.linearVelocity.x, clampedY);
-
-        if (WallSlide)
-        {
-            float maxFallSpeed = -2f;
-            if (rg.linearVelocity.y < maxFallSpeed)
+            if (!beingPushedTimer.IsActive && Alive)
             {
-                rg.linearVelocity = new Vector2(rg.linearVelocity.x, maxFallSpeed);
+                rg.linearVelocity = new Vector2(input.x * Speed, rg.linearVelocity.y);
+            }
+
+            if (rg.linearVelocity.y < 0) rg.gravityScale = defaultGravity * fallMultiplier;
+            else rg.gravityScale = defaultGravity;
+
+            float clampedY = Mathf.Max(rg.linearVelocity.y, -maxFallSpeed);
+            if (Alive) rg.linearVelocity = new Vector2(rg.linearVelocity.x, clampedY);
+
+            if (WallSlide)
+            {
+                float maxFallSpeed = -2f;
+                if (rg.linearVelocity.y < maxFallSpeed)
+                {
+                    rg.linearVelocity = new Vector2(rg.linearVelocity.x, maxFallSpeed);
+                }
             }
         }
     }
 
     public void Dash(InputAction.CallbackContext context)
     {
-        if (context.started && Alive)
+        if (context.started && Alive && !dashTimer.IsActive && !dashCooldownTimer.IsActive && input.x != 0)
         {
-            IAmBeingPushed = true;
-            beingPushedTimer = beingPushedCooldown;
-            rg.AddForce(input * DashSpeed, ForceMode2D.Impulse);
+            rg.linearVelocity = new Vector2(Math.Sign(input.x) * DashSpeed, 0);
+            rg.gravityScale = 0;
+            dashTimer.Start();
         }
     }
 
     public void Push(InputAction.CallbackContext context)
     {
-        if (context.started && !isPushOnCooldown && Alive)
+        if (context.started && !pushTimer.IsActive && Alive)
         {
             audioSource.PlayOneShot(pushSound);
-            isPushOnCooldown = true;
-            pushTimer = pushCooldown;
+            pushTimer.Start();
             animator.SetTrigger("Push");
 
             foreach (Player p in hurtPlayer.hittingPlayers)
@@ -365,8 +361,7 @@ public class Player : MonoBehaviour
                     input.x switch { > 0 => 1, 0 => playerCanvas.transform.localScale.x, < 0 => -1 },
                     input.y switch { > 0 => 1, 0 => 0, < 0 => -1 }
                 );
-                p.IAmBeingPushed = true;
-                p.beingPushedTimer = p.beingPushedCooldown;
+                p.beingPushedTimer.Start();
                 p.rg.AddForce(force * KnocBackForce, ForceMode2D.Impulse);
             }
         }
@@ -374,33 +369,44 @@ public class Player : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        if (context.performed && !isPunchOnCooldown && Alive && !FamilyFriendly)
+        if (context.performed && !punchTimer.IsActive && Alive && !FamilyFriendly)
         {
             audioSource.PlayOneShot(punchSound);
-            isPunchOnCooldown = true;
-            punchTimer = punchCooldown;
+
+            punchTimer.Start();
 
             if (attackAction is not null) attackAction(this);
             else DefaultAttack();
         }
     }
 
+    public void OnLeaveMask() => hittingMask = null;
+    void UseMaskIfStillTouchingIt()
+    {
+        if (hittingMask != null)
+        {
+            GetMask(hittingMask);
+            hittingMask = null;
+        }
+    }
     public void GetMask(Mask mask)
     {
-        if (!maskTimerActive && !cannotGetMask)
+        if (!maskTimer.IsActive && !cannotGetMaskTimer.IsActive)
         {
             audioSource.PlayOneShot(getMaskSound);
             currentMask = mask;
             currentMask.Hide();
             saveFace = face.sprite;
             face.sprite = mask.GetSprite();
-            maskTimer = mask.TimeMask;
-            maskTimerActive = true;
+            maskTimer.StartValue = mask.TimeMask;
+            maskTimer.Start();
 
             if (timeBarContainer != null) timeBarContainer.SetActive(true);
             else if (timeBarFill != null) timeBarFill.gameObject.SetActive(true);
 
             mask.Get(this);
+        } else {
+            hittingMask = mask;
         }
     }
 
@@ -416,15 +422,12 @@ public class Player : MonoBehaviour
 
     public void SetHealthBar()
     {
-        if (healthBarFill != null) healthBarFill.fillAmount = (float)HitPoints / DEFAULT_HIT_POINTS;
+        if (healthBarFill != null) healthBarFill.fillAmount = (float)HitPoints / defaultHitPoints;
     }
 
     public void Hit(int hitPoints)
     {
-        isHitted = true;
-        hitColorTimer = hitColorCooldown;
-        SetRedHitColor();
-
+        hitTimer.Start();
         HitPoints -= hitPoints;
         SetHealthBar();
 
@@ -460,7 +463,7 @@ public class Player : MonoBehaviour
     public void Revive()
     {
         Alive = true;
-        HitPoints = DEFAULT_HIT_POINTS;
+        HitPoints = config.Get<int>("Defautl");
         SetHealthBar();
         GetComponent<Collider2D>().enabled = true;
         GetComponent<SpriteRenderer>().enabled = true;
