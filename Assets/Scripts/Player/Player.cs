@@ -96,6 +96,7 @@ public class Player : MonoBehaviour
         config = new(Path.Combine(Application.streamingAssetsPath, "Config", "player_config.txt"));
 
         defaultHitPoints = config.Get<int>("DEFAULT_HIT_POINTS");
+        HitPoints = defaultHitPoints;
         hurtBoxPosX = config.Get<float>("HurtBoxPosX");
         hurtBoxPosY = config.Get<float>("HurtBoxPosY");
 
@@ -131,7 +132,6 @@ public class Player : MonoBehaviour
         RestoreColor();
         rg = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
-        HitPoints = defaultHitPoints;
         playerCanvas = GetComponentInChildren<Canvas>();
 
         SetNameVisual(); // Ponemos el nombre limpio
@@ -354,16 +354,19 @@ public class Player : MonoBehaviour
             audioSource.PlayOneShot(pushSound);
             pushTimer.Start();
             animator.SetTrigger("Push");
+        }
+    }
 
-            foreach (Player p in hurtPlayer.hittingPlayers)
-            {
-                Vector2 force = new Vector2(
-                    input.x switch { > 0 => 1, 0 => playerCanvas.transform.localScale.x, < 0 => -1 },
-                    input.y switch { > 0 => 1, 0 => 0, < 0 => -1 }
-                );
-                p.beingPushedTimer.Start();
-                p.rg.AddForce(force * KnocBackForce, ForceMode2D.Impulse);
-            }
+    public void PushAction()
+    {
+        foreach (Player p in hurtPlayer.hittingPlayers)
+        {
+            Vector2 force = new Vector2(
+                input.x switch { > 0 => 1, 0 => playerCanvas.transform.localScale.x, < 0 => -1 },
+                input.y switch { > 0 => 1, 0 => 0, < 0 => -1 }
+            );
+            p.beingPushedTimer.Start();
+            p.rg.AddForce(force * KnocBackForce, ForceMode2D.Impulse);
         }
     }
 
@@ -374,9 +377,10 @@ public class Player : MonoBehaviour
             audioSource.PlayOneShot(punchSound);
 
             punchTimer.Start();
+            animator.SetTrigger("Punch");
 
-            if (attackAction is not null) attackAction(this);
-            else DefaultAttack();
+            // if (attackAction is not null) attackAction(this);
+            // else DefaultAttack();
         }
     }
 
@@ -412,7 +416,7 @@ public class Player : MonoBehaviour
 
     void DefaultAttack()
     {
-        animator.SetTrigger("Punch");
+        Debug.Log("I am punching\n");
         for (int i = 0; i < hurtPlayer.hittingPlayers.Count; i++)
         {
             Player p = hurtPlayer.hittingPlayers[i];
@@ -463,7 +467,7 @@ public class Player : MonoBehaviour
     public void Revive()
     {
         Alive = true;
-        HitPoints = config.Get<int>("Defautl");
+        HitPoints = defaultHitPoints;
         SetHealthBar();
         GetComponent<Collider2D>().enabled = true;
         GetComponent<SpriteRenderer>().enabled = true;

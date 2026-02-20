@@ -16,7 +16,6 @@ public class PlayerGroundCheck : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log($"Collision tag: {collision.tag} \n");
         if (collision.CompareTag("Ground"))
         {
             groundContacts--;

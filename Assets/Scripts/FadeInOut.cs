@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class FadeInOut : MonoBehaviour
 {
+    static int id = 0;
+    static int GetId() => id++;
+    int myId;
     public enum Status { IN, OUT }
     public Status status = Status.IN;
     public float duration = 3f;
@@ -13,14 +16,18 @@ public class FadeInOut : MonoBehaviour
 
     void Start()
     {
+        myId = GetId();
         image = GetComponent<Image>();
         timer = duration;
     }
 
     void Update()
     {
-        // Protección anti-crasheos
-        if (image == null) return;
+        // Protecciï¿½n anti-crasheos
+        if (image == null) {
+            Debug.Log("I am not updating because of this");
+            return;
+        }
 
         if (status == Status.IN && timer > 0)
         {
@@ -48,6 +55,7 @@ public class FadeInOut : MonoBehaviour
 
     public void SetIn(Action onEnd)
     {
+        Debug.Log($"Soy {myId} SetIn");
         OnEnd = onEnd;
         timer = duration;
         status = Status.IN;
@@ -55,6 +63,7 @@ public class FadeInOut : MonoBehaviour
 
     public void SetOut(Action onEnd)
     {
+        Debug.Log($"Soy {myId} SetOut");
         OnEnd = onEnd;
         timer = 0;
         status = Status.OUT;

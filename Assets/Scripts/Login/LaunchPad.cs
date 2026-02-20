@@ -14,7 +14,7 @@ public class LaunchPad : MonoBehaviour
     public TextMeshProUGUI label;
     public TextMeshProUGUI statusText;
 
-    [Header("Configuración")]
+    [Header("Configuraciï¿½n")]
     public int MaxPlayers;
     public int CurrentPlayers;
 
@@ -24,6 +24,7 @@ public class LaunchPad : MonoBehaviour
 
     void Start()
     {
+        fadeInOut = FindObjectOfType<FadeInOut>();
         UpdateLabel();
     }
 
@@ -31,16 +32,16 @@ public class LaunchPad : MonoBehaviour
     {
         if (startCountDown)
         {
-            // Lógica ORIGINAL tuya: la cuenta atrás avanza
+            // Lï¿½gica ORIGINAL tuya: la cuenta atrï¿½s avanza
             countDown += Time.deltaTime;
 
-            // Lógica ORIGINAL tuya: la barra se va llenando en base a los 5 segundos
+            // Lï¿½gica ORIGINAL tuya: la barra se va llenando en base a los 5 segundos
             if (fillImage != null)
             {
                 fillImage.fillAmount = countDown / COUNT_DOWN;
             }
 
-            // Lógica ORIGINAL tuya: cambio de escena a los 5 segundos
+            // Lï¿½gica ORIGINAL tuya: cambio de escena a los 5 segundos
             if (countDown >= COUNT_DOWN)
             {
                 startCountDown = false;
@@ -69,7 +70,7 @@ public class LaunchPad : MonoBehaviour
             CurrentPlayers++;
             UpdateLabel();
 
-            // Lógica ORIGINAL tuya + comprobación de que al menos haya 2 jugadores
+            // Lï¿½gica ORIGINAL tuya + comprobaciï¿½n de que al menos haya 2 jugadores
             if (CurrentPlayers == MaxPlayers && MaxPlayers >= 2)
             {
                 startCountDown = true;
@@ -93,7 +94,7 @@ public class LaunchPad : MonoBehaviour
         if (player != null)
         {
             CurrentPlayers--;
-            if (CurrentPlayers < 0) CurrentPlayers = 0; // Pequeña seguridad
+            if (CurrentPlayers < 0) CurrentPlayers = 0; // Pequeï¿½a seguridad
 
             UpdateLabel();
             if (fillImage != null) fillImage.fillAmount = 0;
@@ -113,9 +114,9 @@ public class LaunchPad : MonoBehaviour
         if (statusText != null)
         {
             if (MaxPlayers >= 2)
-                statusText.text = "¡Comienza la Batalla!";
+                statusText.text = "ï¿½Comienza la Batalla!";
             else
-                statusText.text = "Mínimo 2 jugadores";
+                statusText.text = "Mï¿½nimo 2 jugadores";
         }
 
         // Ocultar/Mostrar contenedor (solo se muestra si hay 1+ encima y 2+ en total)

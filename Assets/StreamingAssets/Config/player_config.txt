@@ -6,9 +6,9 @@ KnockBackForce//5
 HitColorCooldown//0,5
 
 # --- MOVIMIENTO ---
-Speed//12
+Speed//10
 JumpForce//40
-DashSpeed//50
+DashSpeed//30
 FallMultiplier//1
 MaxFallSpeed//20
 WallSlideMaxFallSpeed//-2
@@ -25,7 +25,7 @@ HurtBoxPosX//1,12
 HurtBoxPosY//0,74
 
 # --- DASH ---
-DashTime//0,3
+DashTime//0,15
 DashCooldown//0,5
 
 # --- PUSH ---

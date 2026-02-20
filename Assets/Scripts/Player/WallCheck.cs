@@ -9,7 +9,6 @@ public class WallCheck : MonoBehaviour
     {
         if(c.gameObject.tag == "Ground")
         {
-            Debug.Log("Pared");
             player.animator.SetBool("Walling", true);
             player.WallSlide = true;
             player.rg.gravityScale *=  0.1f;
@@ -21,7 +20,6 @@ public class WallCheck : MonoBehaviour
     {
         if(collision.gameObject.tag == "Ground")
         {
-            Debug.Log("FueraPared");
             player.WallSlide = false;
             player.animator.SetBool("Walling", false);
             player.rg.gravityScale = player.originalGravity;

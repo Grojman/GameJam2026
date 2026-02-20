@@ -63,8 +63,6 @@ public class PlayerSpawnManager : MonoBehaviour
         DontDestroyOnLoad(newPlayer.gameObject);
         int index = newPlayer.playerIndex;
         Data_Static.playerList.Add(newPlayer);
-        Debug.Log(index);        
-        Debug.Log($"¡Jugador {index + 1} se ha unido con el mando: {newPlayer.devices[0].displayName}!");
 
         //Colocar al jugador en su punto de spawn
         if (spawnPoints.Length > index)
@@ -99,6 +97,5 @@ public class PlayerSpawnManager : MonoBehaviour
     public void OnPlayerLeft(PlayerInput leftPlayer)
     {
         playerCount--;
-        Debug.Log($"Jugador {leftPlayer.playerIndex + 1} se ha desconectado.");
     }
 }

@@ -40,13 +40,11 @@ public class ConfigManager
 
     public T Get<T>(string key, T defaultValue = default)
     {
-        Debug.Log($"Getting: {key}\n");
         if (!config.ContainsKey(key))
             return defaultValue;
 
         string value = config[key];
 
-        Debug.Log($"String: {value}, converted: {(T)Convert.ChangeType(value, typeof(T))}\n");
 
         try
         {
